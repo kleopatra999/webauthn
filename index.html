@@ -180,7 +180,7 @@
    <header>
     <p data-fill-with="logo"><a href="https://www.w3.org/"><img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"></a> </p>
     <h1 class="p-name no-ref" id="title">Web Authentication: A Web API for accessing scoped credentials </h1>
-    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2016-05-03">3 May 2016</time></span></h2>
+    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2016-05-04">4 May 2016</time></span></h2>
    </header>
    <div data-fill-with="spec-metadata">
     <dl>
@@ -388,7 +388,7 @@ model of a WebAuthn compliant authenticator, including its signature and attesta
    <p>This specification defines an API for web pages to access scoped credentials through JavaScript, for the purpose of strongly
 authenticating a user. Scoped credentials are always scoped to a single <a data-link-type="dfn" href="#webauthn-relying-party" id="ref-for-webauthn-relying-party-1">WebAuthn Relying Party</a>. This scoping is enforced jointly by the
 User Agent implementing the Web Authentication API and the authenticator that holds the credential, by constraining the
-availabilty and usage of credentials. Scoped credentials created by a WebAuthn Relying Party can only be accessed by web origins belonging to that
+availability and usage of credentials. Scoped credentials created by a WebAuthn Relying Party can only be accessed by web origins belonging to that
 WebAuthn Relying Party. Additionally, privacy across WebAuthn Relying Parties must be maintained; scripts must not be able to detect any properties, or even the
 existence, of scoped credentials belonging to other WebAuthn Relying Parties.</p>
    <p>Scoped credentials are located on <a data-link-type="dfn" href="#authenticator" id="ref-for-authenticator-1">authenticators</a>, which can use them to perform operations subject to user consent.
@@ -806,7 +806,7 @@ authenticator.</p>
 with the extension identifier as the key, and the extension’s value as the value (see <a href="#signature-format">§4.2 Signature Format</a> for details).</p>
    <h3 class="heading settled" data-level="3.7" id="iface-attestation-statement"><span class="secno">3.7. </span><span class="content">Key Attestation Statement (interface <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export="" data-lt="AttestationStatement" id="attestationstatement">AttestationStatement<span class="dfn-panel" data-deco=""><b><a href="#attestationstatement">#attestationstatement</a></b><b>Referenced in:</b><span><a href="#ref-for-attestationstatement-1">3. Web Authentication API</a> <a href="#ref-for-attestationstatement-2">(2)</a></span><span><a href="#ref-for-attestationstatement-3">4.3.2. Generating a signature</a></span></span></dfn>)</span><a class="self-link" href="#iface-attestation-statement"></a></h3>
    <p>Authenticators also provide some form of key attestation. The basic requirement is that the authenticator can produce, for each
-credential public key, attestation information that can be verified by a <a data-link-type="dfn" href="#webauthn-relying-party" id="ref-for-webauthn-relying-party-5">WebAuthn Relying Party</a>. Typically this information contains a
+credential public key, attestation information that can be verified by a <a data-link-type="dfn" href="#webauthn-relying-party" id="ref-for-webauthn-relying-party-5">WebAuthn Relying Party</a>. Typically, this information contains a
 signature by an attesting key over the attested public key and a challenge, as well as a certificate or similar information
 providing provenance information for the attesting key, enabling a trust decision to be made.</p>
    <div>
@@ -1038,7 +1038,7 @@ itself.</p>
      <img src="img/fido-signature-formats-figure2.svg"> 
     <figcaption>Generating a signature on the authenticator.</figcaption>
    </figure>
-   <p class="note" role="note">Note: A simple, undelimited concatenation, is safe to use here because the <var>authenticatorData</var> describes its own length. The <var>clientDataHash</var> (which potentially has a variable length) is always the last element.</p>
+   <p class="note" role="note">Note: A simple, undelimited concatenation is safe to use here because the <var>authenticatorData</var> describes its own length. The <var>clientDataHash</var> (which potentially has a variable length) is always the last element.</p>
    <p>The authenticator MUST return both the <a data-link-type="dfn" href="#authenticatordata" id="ref-for-authenticatordata-1">authenticatorData</a> and the raw signature back to the client. The client, in turn,
 MUST return <a data-link-type="dfn" href="#clientdatajson" id="ref-for-clientdatajson-3">clientDataJSON</a>, <a data-link-type="dfn" href="#authenticatordata" id="ref-for-authenticatordata-2">authenticatorData</a> and the signature to the RP. The <a data-link-type="dfn" href="#clientdatajson" id="ref-for-clientdatajson-4">clientDataJSON</a> is returned
 in the <code>clientData</code> member of the <code class="idl"><a data-link-type="idl" href="#webauthnassertion" id="ref-for-webauthnassertion-4">WebAuthnAssertion</a></code> and <code class="idl"><a data-link-type="idl" href="#attestationstatement" id="ref-for-attestationstatement-3">AttestationStatement</a></code> structures.</p>
@@ -1089,7 +1089,7 @@ correlation handle. WebAuthn supports DAA using elliptic curve cryptography and 
    <p>WebAuthn supports pluggable attestation raw data types, i.e., ways to serialize the data being attested to by the <a data-link-type="dfn" href="#authenticator" id="ref-for-authenticator-6">Authenticator</a>. The reason is to be able to support existing devices like TPMs and other platform-specific formats.</p>
    <p>Each attestation type provides the ability to cryptographically attest to a public key, the authenticator model, and contextual
 data to a remote party.</p>
-   <p>Attestation raw data types are orthogonal to attestation models, i.e. attestation raw data types in general are not restricted
+   <p>Attestation raw data types are orthogonal to attestation models, i.e., attestation raw data types in general are not restricted
 to a single attestation model.</p>
    <h4 class="heading settled" data-level="4.4.2" id="defined-attestation-raw-data-types"><span class="secno">4.4.2. </span><span class="content">Defined Attestation Raw Data Types</span><a class="self-link" href="#defined-attestation-raw-data-types"></a></h4>
    <p>Attestation Raw Data (<code>rawData</code>) is the to-be-signed object of the attestation statement. WebAuthn supports pluggable
@@ -1221,7 +1221,7 @@ The <code>RFU</code> bits in the flags byte SHALL be cleared (i.e., zeroed).</p>
     <li data-md="">
      <p>If the related attestation root certificate is used for multiple authenticator models, the Extension OID <code>1 3 6 1 4 1 45724 1 1 4</code> (id-fido-gen-ce-aaguid) MUST be present, containing the AAGUID as value.</p>
     <li data-md="">
-     <p>The Basic Constraints extension MUST have the cA component set to false</p>
+     <p>The Basic Constraints extension MUST have the CA component set to false</p>
     <li data-md="">
      <p>An Authority Information Access (AIA) extension with entry <code>id-ad-ocsp</code> and a CRL Distribution Point extension <a data-link-type="biblio" href="#biblio-rfc5280">[RFC5280]</a> are both optional as the status of attestation certificates is available through the FIDO Metadata Service <a data-link-type="biblio" href="#biblio-fidometadataservice">[FIDOMetadataService]</a>.</p>
    </ul>
@@ -1233,7 +1233,7 @@ structure as defined in <a data-link-type="biblio" href="#biblio-tpmv2-part2">[T
    <p>The field "extraData" (in the case of TPMS_ATTEST) or the field "data" (in the case of TPM_CERTIFY_INFO or TPM_CERTIFY_INFO2)
 MUST contain the <code>clientDataHash</code> (see [[#signature-format]).</p>
    <h6 class="heading settled" data-level="4.4.2.2.2" id="tpm-attestation-signature"><span class="secno">4.4.2.2.2. </span><span class="content">Signature</span><a class="self-link" href="#tpm-attestation-signature"></a></h6>
-   <p>If <code>attestationStatement.core.version</code> equals 1, (i.e., for TPM 1.2), RSASSA-PKCS1-v1_5 signature algorithm (section 8.2 of <a data-link-type="biblio" href="#biblio-rfc3447">[RFC3447]</a>) can be used by WebAuthn Authenticators (i.e. <code>attestationStatement.header.alg</code>="RS256").</p>
+   <p>If <code>attestationStatement.core.version</code> equals 1, (i.e., for TPM 1.2), RSASSA-PKCS1-v1_5 signature algorithm (section 8.2 of <a data-link-type="biblio" href="#biblio-rfc3447">[RFC3447]</a>) can be used by WebAuthn Authenticators (i.e., <code>attestationStatement.header.alg</code>="RS256").</p>
    <p>If <code>attestationStatement.core.version</code> equals 2, the following algorithms can be used by WebAuthn Authenticators:</p>
    <ol>
     <li data-md="">
@@ -1467,7 +1467,7 @@ certificates) per origin (following the Privacy CA model). For example, a WebAut
 attestation key (and certificate), and combined with a cloud operated privacy CA, can dynamically generate per origin
 attestation keys and attestation certificates.</p>
     <li data-md="">
-     <p>A WebAuthn Authenticator can implement direct anonymous attestation (see <a data-link-type="biblio" href="#biblio-fidoecdaaalgorithm">[FIDOEcdaaAlgorithm]</a>).  Using this scheme the
+     <p>A WebAuthn Authenticator can implement direct anonymous attestation (see <a data-link-type="biblio" href="#biblio-fidoecdaaalgorithm">[FIDOEcdaaAlgorithm]</a>).  Using this scheme, the
 authenticator generates a blinded attestation signature.  This allows the WebAuthn Relying Party to verify the signature using the DAA root
 key, but the attestation signature doesn’t serve as a global correlation handle.</p>
    </ul>
@@ -1527,7 +1527,7 @@ be used for extensions not defined by the W3C.</p>
    <h3 class="heading settled" data-level="5.2" id="extension-specification"><span class="secno">5.2. </span><span class="content">Defining extensions</span><a class="self-link" href="#extension-specification"></a></h3>
    <p>A definition of an extension must specify, at minimum, an extension identifier and an extension client argument sent via the <code class="idl"><a data-link-type="idl" href="#dom-webauthentication-getassertion" id="ref-for-dom-webauthentication-getassertion-6">getAssertion()</a></code> or <code class="idl"><a data-link-type="idl" href="#dom-webauthentication-makecredential" id="ref-for-dom-webauthentication-makecredential-6">makeCredential()</a></code> call (see below). Additionally, extensions may specify additional values in <code class="idl"><a data-link-type="idl" href="#dictdef-clientdata" id="ref-for-dictdef-clientdata-7">ClientData</a></code>, <code>authenticatorData</code> (in the case of signature extensions), or both.</p>
    <p class="note" role="note">Note: An extension that does not define additions to <code class="idl"><a data-link-type="idl" href="#dictdef-clientdata" id="ref-for-dictdef-clientdata-8">ClientData</a></code> nor <code>authenticatorData</code> is possible, but should be avoided.
-    In such cases, the WebAuthn Relying Party would have no indication if the extension was supported or processed by the client and/or
+    In such cases, the WebAuthn Relying Party would have no indication whether the extension was supported or processed by the client and/or
     authenticator.</p>
    <h3 class="heading settled" data-level="5.3" id="extension-request-parameters"><span class="secno">5.3. </span><span class="content">Extending request parameters</span><a class="self-link" href="#extension-request-parameters"></a></h3>
    <p>An extension defines two request arguments. The <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="client argument" data-noexport="" id="client-argument">client argument<span class="dfn-panel" data-deco=""><b><a href="#client-argument">#client-argument</a></b><b>Referenced in:</b><span><a href="#ref-for-client-argument-1">5.3. Extending request parameters</a></span></span></dfn> is passed from the <a data-link-type="dfn" href="#webauthn-relying-party" id="ref-for-webauthn-relying-party-10">WebAuthn Relying Party</a> to the client in the <code class="idl"><a data-link-type="idl" href="#dom-webauthentication-getassertion" id="ref-for-dom-webauthentication-getassertion-7">getAssertion()</a></code> or <code class="idl"><a data-link-type="idl" href="#dom-webauthentication-makecredential" id="ref-for-dom-webauthentication-makecredential-7">makeCredential()</a></code> call, while the <dfn data-dfn-type="dfn" data-noexport="" id="authenticator-argument">authenticator argument<a class="self-link" href="#authenticator-argument"></a></dfn> is passed from the client to the
@@ -1666,7 +1666,7 @@ rendering engine to be used and also supports a richer visual appearance.</p>
      <p>Authenticator processing</p>
     <dd data-md="">
      <p>The authenticator MUST display the <a data-link-type="dfn" href="#content" id="ref-for-content-1">content</a> to the user before performing the user verification / test of user
-presence. The authenticator may add other information below the <a data-link-type="dfn" href="#content" id="ref-for-content-2">content</a>. No changes are allowed to the <a data-link-type="dfn" href="#content" id="ref-for-content-3">content</a> itself, i.e. inside <a data-link-type="dfn" href="#content" id="ref-for-content-4">content</a> boundary box.</p>
+presence. The authenticator may add other information below the <a data-link-type="dfn" href="#content" id="ref-for-content-2">content</a>. No changes are allowed to the <a data-link-type="dfn" href="#content" id="ref-for-content-3">content</a> itself, i.e., inside <a data-link-type="dfn" href="#content" id="ref-for-content-4">content</a> boundary box.</p>
     <dt data-md="">
      <p>Authenticator data</p>
     <dd data-md="">
@@ -1695,7 +1695,7 @@ list is ordered by decreasing preference.</p>
     <dt data-md="">
      <p>Client processing</p>
     <dd data-md="">
-     <p>This extension can only used during <code class="idl"><a data-link-type="idl" href="#dom-webauthentication-makecredential" id="ref-for-dom-webauthentication-makecredential-9">makeCredential()</a></code>. If the client supports the Authenticator Selection Extension, it
+     <p>This extension can only be used during <code class="idl"><a data-link-type="idl" href="#dom-webauthentication-makecredential" id="ref-for-dom-webauthentication-makecredential-9">makeCredential()</a></code>. If the client supports the Authenticator Selection Extension, it
 MUST use the first available authenticator whose AAGUID is present in the <dfn data-dfn-type="dfn" data-noexport="" id="authenticatorselectionlist">AuthenticatorSelectionList<a class="self-link" href="#authenticatorselectionlist"></a></dfn>. If none of
 the available authenticators match a provided AAGUID, the client MUST select an authenticator from among the available
 authenticators to generate the credential.</p>
@@ -1749,7 +1749,7 @@ certificate), or</p>
 per authenticator model).</p>
       </ul>
       <p>In the case of DAA there is no need for an X.509 attestation certificate hierarchy. Instead the trust anchor being
-        known to the WebAuthn Relying Party is the DAA root key (i.e. ECPoint2 X, Y).  This root key must be dedicated to a single
+        known to the WebAuthn Relying Party is the DAA root key (i.e., ECPoint2 X, Y).  This root key must be dedicated to a single
         authenticator model.</p>
      </div>
    </dl>
@@ -1778,7 +1778,7 @@ per authenticator model).</p>
     <dt data-md="">
      <p>Authenticator data</p>
     <dd data-md="">
-     <p>The SupportedExtension extension is a list (CBOR array) of extension identifiers encoded as UTF-8 Strings.</p>
+     <p>The SupportedExtensions extension is a list (CBOR array) of extension identifiers encoded as UTF-8 Strings.</p>
    </dl>
    <h3 class="heading settled" data-level="6.5" id="uvi-extension"><span class="secno">6.5. </span><span class="content">User Verification Index (UVI) Extension</span><a class="self-link" href="#uvi-extension"></a></h3>
    <dl>
@@ -1846,7 +1846,7 @@ defined in section "Cryptographic Algorithms for Digital Signatures and MACs" in
       <td>The SHA256 hash algorithm.
      <tr>
       <td>Algorithm Usage Location(s)
-      <td>"alg", i.e. used with JWS.
+      <td>"alg", i.e., used with JWS.
      <tr>
       <td>JOSE Implementation Requirements
       <td>Optional+
@@ -1870,7 +1870,7 @@ defined in section "Cryptographic Algorithms for Digital Signatures and MACs" in
       <td>The SHA384 hash algorithm.
      <tr>
       <td>Algorithm Usage Location(s)
-      <td>"alg", i.e. used with JWS.
+      <td>"alg", i.e., used with JWS.
      <tr>
       <td>JOSE Implementation Requirements
       <td>Optional
@@ -1894,7 +1894,7 @@ defined in section "Cryptographic Algorithms for Digital Signatures and MACs" in
       <td>The SHA512 hash algorithm.
      <tr>
       <td>Algorithm Usage Location(s)
-      <td>"alg", i.e. used with JWS.
+      <td>"alg", i.e., used with JWS.
      <tr>
       <td>JOSE Implementation Requirements
       <td>Optional+
@@ -1918,7 +1918,7 @@ defined in section "Cryptographic Algorithms for Digital Signatures and MACs" in
       <td>The SM3 hash algorithm.
      <tr>
       <td>Algorithm Usage Location(s)
-      <td>"alg", i.e. used with JWS.
+      <td>"alg", i.e., used with JWS.
      <tr>
       <td>JOSE Implementation Requirements
       <td>Optional
@@ -2141,7 +2141,7 @@ signed by this credential are rejected.</p>
     <dt data-md="">
      <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="Attestation Certificate" data-noexport="" id="attestation-certificate">Attestation Certificate<span class="dfn-panel" data-deco=""><b><a href="#attestation-certificate">#attestation-certificate</a></b><b>Referenced in:</b><span><a href="#ref-for-attestation-certificate-1">4.4.2.1.3. Packed attestation statement certificate requirements</a></span><span><a href="#ref-for-attestation-certificate-2">4.4.2.2.3. TPM attestation statement certificate requirements</a></span></span></dfn></p>
     <dd data-md="">
-     <p>A X.509 Certificate for a keypair used by an <a data-link-type="dfn" href="#authenticator" id="ref-for-authenticator-18">Authenticator</a> to attest to its manufacture and capabilities.</p>
+     <p>A X.509 Certificate for a key pair used by an <a data-link-type="dfn" href="#authenticator" id="ref-for-authenticator-18">Authenticator</a> to attest to its manufacture and capabilities.</p>
     <dt data-md="">
      <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="Authenticator" data-noexport="" id="authenticator">Authenticator<span class="dfn-panel" data-deco=""><b><a href="#authenticator">#authenticator</a></b><b>Referenced in:</b><span><a href="#ref-for-authenticator-1">1. Use Cases</a></span><span><a href="#ref-for-authenticator-2">4. WebAuthn Authenticator model</a></span><span><a href="#ref-for-authenticator-3">4.2. Signature Format</a></span><span><a href="#ref-for-authenticator-4">4.3.1. Authenticator data</a></span><span><a href="#ref-for-authenticator-5">4.3.2. Generating a signature</a></span><span><a href="#ref-for-authenticator-6">4.4.1.2. Attestation Raw Data Types</a></span><span><a href="#ref-for-authenticator-7">4.4.2. Defined Attestation Raw Data Types</a></span><span><a href="#ref-for-authenticator-8">4.4.2.1. Packed Attestation</a></span><span><a href="#ref-for-authenticator-9">4.4.2.1.1. Attestation rawData (type="packed")</a> <a href="#ref-for-authenticator-10">(2)</a></span><span><a href="#ref-for-authenticator-11">4.4.2.1.2. Signature</a></span><span><a href="#ref-for-authenticator-12">4.4.2.3. Android Attestation</a></span><span><a href="#ref-for-authenticator-13">4.4.2.3.3. Converting SafetyNet response to attestationStatement</a></span><span><a href="#ref-for-authenticator-14">4.4.4.1. Privacy</a></span><span><a href="#ref-for-authenticator-15">4.4.4.2. Attestation Certificate and Attestation Certificate CA Compromise</a></span><span><a href="#ref-for-authenticator-16">6.3. AAGUID Extension</a></span><span><a href="#ref-for-authenticator-17">8. Sample scenarios</a></span><span><a href="#ref-for-authenticator-18">9. Terminology</a> <a href="#ref-for-authenticator-19">(2)</a></span></span></dfn></p>
     <dd data-md="">
