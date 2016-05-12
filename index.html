@@ -180,7 +180,7 @@
    <header>
     <p data-fill-with="logo"><a href="https://www.w3.org/"><img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"></a> </p>
     <h1 class="p-name no-ref" id="title">Web Authentication: A Web API for accessing scoped credentials </h1>
-    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2016-05-11">11 May 2016</time></span></h2>
+    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2016-05-12">12 May 2016</time></span></h2>
    </header>
    <div data-fill-with="spec-metadata">
     <dl>
@@ -516,7 +516,7 @@ to the authenticator for all operations, and the authenticator ensures that cred
 operations requested by the same RP ID. Separating the origin from the RP ID in this way allows the API to be used in cases
 where a single WebAuthn Relying Party maintains multiple web origins.</p>
    <p>The client facilitates these security measures by providing correct web origins and RP IDs to the authenticator for each
-operation. Since this is an integral part of the WebAuthn security model, user agents SHOULD only expose this API to callers in <dfn data-dfn-type="dfn" data-noexport="" id="secure-contexts">secure contexts<a class="self-link" href="#secure-contexts"></a></dfn>, as defined in <a data-link-type="biblio" href="#biblio-powerful-features">[powerful-features]</a>.</p>
+operation. Since this is an integral part of the WebAuthn security model, user agents SHOULD only expose this API to callers in <dfn data-dfn-type="dfn" data-noexport="" id="secure-contexts">secure contexts<a class="self-link" href="#secure-contexts"></a></dfn>, as defined in <a data-link-type="biblio" href="#biblio-secure-contexts">[secure-contexts]</a>.</p>
    <p>The API is defined by the following Web IDL fragment.</p>
 <pre class="idl def">partial interface <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/browsers.html#window">Window</a> {
     readonly attribute <a data-link-type="idl-name" href="#webauthentication" id="ref-for-webauthentication-1">WebAuthentication</a> <dfn class="idl-code" data-dfn-for="Window" data-dfn-type="attribute" data-export="" data-readonly="" data-type="WebAuthentication" id="dom-window-webauthn">webauthn<a class="self-link" href="#dom-window-webauthn"></a></dfn>;
@@ -2456,8 +2456,6 @@ the WebAuthn Relying Party has the public key that was created by the Authentica
    <dd>R. Lindemann; D. Baghdasaryan; B. Hill. <a href="https://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-security-ref-v1.0-ps-20141208.html">FIDO Security Reference</a>. FIDO Alliance Proposed Standard. URL: <a href="https://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-security-ref-v1.0-ps-20141208.html">https://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-security-ref-v1.0-ps-20141208.html</a>
    <dt id="biblio-geojson">[GeoJSON]
    <dd><a href="http://geojson.org/geojson-spec.html">The GeoJSON Format Specification</a>. URL: <a href="http://geojson.org/geojson-spec.html">http://geojson.org/geojson-spec.html</a>
-   <dt id="biblio-powerful-features">[POWERFUL-FEATURES]
-   <dd>Mike West. <a href="http://www.w3.org/TR/secure-contexts/">Secure Contexts</a>. 26 April 2016. WD. URL: <a href="http://www.w3.org/TR/secure-contexts/">http://www.w3.org/TR/secure-contexts/</a>
    <dt id="biblio-psl">[PSL]
    <dd><cite><a href="https://publicsuffix.org/">Public Suffix List</a></cite>.    Mozilla Foundation.
    <dt id="biblio-rfc3447">[RFC3447]
@@ -2474,6 +2472,8 @@ the WebAuthn Relying Party has the public key that was created by the Authentica
    <dd>C. Bormann; P. Hoffman. <a href="https://tools.ietf.org/html/rfc7049">Concise Binary Object Representation (CBOR)</a>. October 2013. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc7049">https://tools.ietf.org/html/rfc7049</a>
    <dt id="biblio-rfc7159">[RFC7159]
    <dd>T. Bray, Ed.. <a href="https://tools.ietf.org/html/rfc7159">The JavaScript Object Notation (JSON) Data Interchange Format</a>. March 2014. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc7159">https://tools.ietf.org/html/rfc7159</a>
+   <dt id="biblio-secure-contexts">[SECURE-CONTEXTS]
+   <dd>Mike West. <a href="http://www.w3.org/TR/secure-contexts/">Secure Contexts</a>. 26 April 2016. WD. URL: <a href="http://www.w3.org/TR/secure-contexts/">http://www.w3.org/TR/secure-contexts/</a>
    <dt id="biblio-sp800-107r1">[SP800-107r1]
    <dd>Quynh Dang. <a href="http://csrc.nist.gov/publications/nistpubs/800-107-rev1/sp800-107-rev1.pdf">NIST Special Publication 800-107: Recommendation for Applications Using Approved Hash Algorithms</a>. August 2012. URL: <a href="http://csrc.nist.gov/publications/nistpubs/800-107-rev1/sp800-107-rev1.pdf">http://csrc.nist.gov/publications/nistpubs/800-107-rev1/sp800-107-rev1.pdf</a>
    <dt id="biblio-tpmv1-2-credential-profiles">[TPMv1-2-Credential-Profiles]
