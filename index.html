@@ -18,27 +18,41 @@
             }</style>
 <style>/* style-counters */
 
+            body {
+                counter-reset: example figure issue;
+            }
+            .issue {
+                counter-increment: issue;
+            }
             .issue:not(.no-marker)::before {
                 content: "Issue " counter(issue);
             }
 
+            .example {
+                counter-increment: example;
+            }
             .example:not(.no-marker)::before {
-                content: "Example";
                 content: "Example " counter(example);
             }
             .invalid.example:not(.no-marker)::before,
             .illegal.example:not(.no-marker)::before {
-                content: "Invalid Example";
                 content: "Invalid Example" counter(example);
+            }
+
+            figure {
+                counter-increment: figure;
+            }
+            figcaption:not(.no-marker)::before {
+                content: "Figure " counter(figure);
             }</style>
 <style>/* style-dfn-panel */
 
         .dfn-panel {
-            display: inline-block;
             position: absolute;
             z-index: 35;
             height: auto;
             width: -webkit-fit-content;
+            width: fit-content;
             max-width: 300px;
             max-height: 500px;
             overflow: auto;
@@ -54,12 +68,13 @@
         .dfn-panel a { color: black; }
         .dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
         .dfn-panel > b + b { margin-top: 0.25em; }
-        .dfn-panel > span { display: list-item; list-style: inside; }
+        .dfn-panel ul { padding: 0; }
+        .dfn-panel li { list-style: inside; }
         .dfn-panel.activated {
             display: inline-block;
             position: fixed;
             left: .5em;
-            bottom: .5em;
+            bottom: 2em;
             margin: 0 auto;
             max-width: calc(100vw - 1.5em - .4em - .5em);
             max-height: 30vh;
@@ -180,7 +195,7 @@
    <header>
     <p data-fill-with="logo"><a href="https://www.w3.org/"><img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"></a> </p>
     <h1 class="p-name no-ref" id="title">Web Authentication: A Web API for accessing scoped credentials </h1>
-    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2016-05-13">13 May 2016</time></span></h2>
+    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2016-05-26">26 May 2016</time></span></h2>
    </header>
    <div data-fill-with="spec-metadata">
     <dl>
@@ -385,12 +400,12 @@ existence, of scoped credentials belonging to other WebAuthn Relying Parties.</p
 Broadly, authenticators are of two types:</p>
    <ol>
     <li data-md="">
-     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="Embedded authenticators" data-noexport="" id="embedded-authenticators">Embedded authenticators<span class="dfn-panel" data-deco=""><b><a href="#embedded-authenticators">#embedded-authenticators</a></b><b>Referenced in:</b><span><a href="#ref-for-embedded-authenticators-1">1.1. Registration (embedded authenticator mode)</a></span><span><a href="#ref-for-embedded-authenticators-2">9. Terminology</a></span></span></dfn> have their operation managed by the same computing device (e.g., smart phone, tablet,
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="embedded-authenticators">Embedded authenticators</dfn> have their operation managed by the same computing device (e.g., smart phone, tablet,
 desktop PC) as the user agent is running on. For instance, such an authenticator might consist of a Trusted Platform Module
 (TPM) or Secure Element (SE) integrated into the computing device, along with appropriate platform software to mediate
 access to this device’s functionality.</p>
     <li data-md="">
-     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="External authenticators" data-noexport="" id="external-authenticators">External authenticators<span class="dfn-panel" data-deco=""><b><a href="#external-authenticators">#external-authenticators</a></b><b>Referenced in:</b><span><a href="#ref-for-external-authenticators-1">1.2. Authentication (external authenticator mode)</a></span><span><a href="#ref-for-external-authenticators-2">8.2. Authentication</a></span><span><a href="#ref-for-external-authenticators-3">9. Terminology</a></span></span></dfn> operate autonomously from the device running the user agent, and accessed over a transport
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="external-authenticators">External authenticators</dfn> operate autonomously from the device running the user agent, and accessed over a transport
 such as Universal Serial Bus (USB), Bluetooth Low Energy (BLE) or Near Field Communications (NFC).</p>
    </ol>
    <p>Note that an external authenticator may itself contain an embedded authenticator. For example, consider a smart phone that
@@ -471,23 +486,23 @@ hardware, or a combination of both.</p>
     <dt data-md="">
      <p>HTML5</p>
     <dd data-md="">
-     <p>The concept of <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="origin" data-noexport="" id="origin">origin<span class="dfn-panel" data-deco=""><b><a href="#origin">#origin</a></b><b>Referenced in:</b><span><a href="#ref-for-origin-1">3.1.1. Create a new credential (makeCredential() method)</a></span><span><a href="#ref-for-origin-2">3.1.2. Use an existing credential (getAssertion() method)</a></span></span></dfn> and the <dfn data-dfn-type="dfn" data-noexport="" id="window">Window<a class="self-link" href="#window"></a></dfn> interface are defined in <a data-link-type="biblio" href="#biblio-html5">[HTML5]</a>.</p>
+     <p>The concept of <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="origin">origin</dfn> and the <dfn data-dfn-type="dfn" data-noexport="" id="window">Window<a class="self-link" href="#window"></a></dfn> interface are defined in <a data-link-type="biblio" href="#biblio-html5">[HTML5]</a>.</p>
     <dt data-md="">
      <p>Web IDL</p>
     <dd data-md="">
      <p>Many of the interface definitions and all of the IDL in this specification depend on <a data-link-type="biblio" href="#biblio-webidl-1">[WebIDL-1]</a>. This updated version of
-the Web IDL standard adds support for <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="Promises" data-noexport="" id="promises">Promises<span class="dfn-panel" data-deco=""><b><a href="#promises">#promises</a></b><b>Referenced in:</b><span><a href="#ref-for-promises-1">3.1.1. Create a new credential (makeCredential() method)</a></span><span><a href="#ref-for-promises-2">3.1.2. Use an existing credential (getAssertion() method)</a></span></span></dfn>, which are now the preferred mechanism for asynchronous
+the Web IDL standard adds support for <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="promises">Promises</dfn>, which are now the preferred mechanism for asynchronous
 interaction in all new web APIs.</p>
     <dt data-md="">
      <p>DOM</p>
     <dd data-md="">
-     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="DOMException" data-noexport="" id="domexception">DOMException<span class="dfn-panel" data-deco=""><b><a href="#domexception">#domexception</a></b><b>Referenced in:</b><span><a href="#ref-for-domexception-1">3.1.1. Create a new credential (makeCredential() method)</a></span><span><a href="#ref-for-domexception-2">3.1.2. Use an existing credential (getAssertion() method)</a></span></span></dfn> and the DOMException values used in this specification are defined in <a data-link-type="biblio" href="#biblio-dom4">[DOM4]</a>.</p>
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="domexception">DOMException</dfn> and the DOMException values used in this specification are defined in <a data-link-type="biblio" href="#biblio-dom4">[DOM4]</a>.</p>
     <dt data-md="">
      <p>Web Cryptography API</p>
     <dd data-md="">
-     <p>The <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" data-lt="AlgorithmIdentifier" id="dictdef-algorithmidentifier">AlgorithmIdentifier<span class="dfn-panel" data-deco=""><b><a href="#dictdef-algorithmidentifier">#dictdef-algorithmidentifier</a></b><b>Referenced in:</b><span><a href="#ref-for-dictdef-algorithmidentifier-1">3. Web Authentication API</a></span><span><a href="#ref-for-dictdef-algorithmidentifier-2">3.8.3. Cryptographic Algorithm Identifier (type AlgorithmIdentifier)</a></span><span><a href="#ref-for-dictdef-algorithmidentifier-3">4.2.1. Client data used in WebAuthn signatures (dictionary ClientData)</a></span></span></dfn> type and the method for normalizing an algorithm are defined in <a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#algorithm-dictionary">Web Cryptography API §algorithm-dictionary</a>.</p>
+     <p>The <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-algorithmidentifier">AlgorithmIdentifier</dfn> type and the method for normalizing an algorithm are defined in <a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#algorithm-dictionary">Web Cryptography API §algorithm-dictionary</a>.</p>
     <dd data-md="">
-     <p>The <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" data-lt="JsonWebKey" id="dictdef-jsonwebkey">JsonWebKey<span class="dfn-panel" data-deco=""><b><a href="#dictdef-jsonwebkey">#dictdef-jsonwebkey</a></b><b>Referenced in:</b><span><a href="#ref-for-dictdef-jsonwebkey-1">4.2.1. Client data used in WebAuthn signatures (dictionary ClientData)</a></span><span><a href="#ref-for-dictdef-jsonwebkey-2">4.3.2.3.1. Signature</a></span></span></dfn> dictionary for representing cryptographic keys is defined in <a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#JsonWebKey-dictionary">Web Cryptography API §JsonWebKey-dictionary</a>.</p>
+     <p>The <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-jsonwebkey">JsonWebKey</dfn> dictionary for representing cryptographic keys is defined in <a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#JsonWebKey-dictionary">Web Cryptography API §JsonWebKey-dictionary</a>.</p>
     <dt data-md="">
      <p>Base64url encoding</p>
     <dd data-md="">
@@ -584,9 +599,9 @@ interface <a class="idl-code" data-link-type="interface" href="#credential" id="
     readonly attribute <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource">BufferSource</a>   <dfn class="idl-code" data-dfn-for="Credential" data-dfn-type="attribute" data-export="" data-readonly="" data-type="BufferSource" id="dom-credential-id">id<a class="self-link" href="#dom-credential-id"></a></dfn>;
 };
 </pre>
-   <h3 class="heading settled" data-level="3.1" id="iface-credential"><span class="secno">3.1. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export="" data-lt="WebAuthentication" id="webauthentication">WebAuthentication<span class="dfn-panel" data-deco=""><b><a href="#webauthentication">#webauthentication</a></b><b>Referenced in:</b><span><a href="#ref-for-webauthentication-1">3. Web Authentication API</a> <a href="#ref-for-webauthentication-2">(2)</a></span></span></dfn> Interface</span><a class="self-link" href="#iface-credential"></a></h3>
+   <h3 class="heading settled" data-level="3.1" id="iface-credential"><span class="secno">3.1. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="webauthentication">WebAuthentication</dfn> Interface</span><a class="self-link" href="#iface-credential"></a></h3>
    <p>This interface has two methods, which are described in the following subsections.</p>
-   <h4 class="heading settled" data-level="3.1.1" id="makeCredential"><span class="secno">3.1.1. </span><span class="content">Create a new credential (<dfn class="dfn-paneled idl-code" data-dfn-for="WebAuthentication" data-dfn-type="method" data-export="" data-lt="makeCredential(accountInformation, cryptoParameters, attestationChallenge, credentialTimeoutSeconds, blacklist, credentialExtensions)|makeCredential(accountInformation, cryptoParameters, attestationChallenge, credentialTimeoutSeconds, blacklist)|makeCredential(accountInformation, cryptoParameters, attestationChallenge, credentialTimeoutSeconds)|makeCredential(accountInformation, cryptoParameters, attestationChallenge)" id="dom-webauthentication-makecredential">makeCredential()<span class="dfn-panel" data-deco=""><b><a href="#dom-webauthentication-makecredential">#dom-webauthentication-makecredential</a></b><b>Referenced in:</b><span><a href="#ref-for-dom-webauthentication-makecredential-1">3. Web Authentication API</a></span><span><a href="#ref-for-dom-webauthentication-makecredential-2">4.3.2.3.2. Verifying AndroidClientData specific contextual bindings</a></span><span><a href="#ref-for-dom-webauthentication-makecredential-3">5. WebAuthn Extensions</a> <a href="#ref-for-dom-webauthentication-makecredential-4">(2)</a></span><span><a href="#ref-for-dom-webauthentication-makecredential-5">5.2. Defining extensions</a></span><span><a href="#ref-for-dom-webauthentication-makecredential-6">5.3. Extending request parameters</a> <a href="#ref-for-dom-webauthentication-makecredential-7">(2)</a></span><span><a href="#ref-for-dom-webauthentication-makecredential-8">6.2. Authenticator Selection Extension</a></span></span></dfn> method)</span><a class="self-link" href="#makeCredential"></a></h4>
+   <h4 class="heading settled" data-level="3.1.1" id="makeCredential"><span class="secno">3.1.1. </span><span class="content">Create a new credential (<dfn class="dfn-paneled idl-code" data-dfn-for="WebAuthentication" data-dfn-type="method" data-export="" data-lt="makeCredential(accountInformation, cryptoParameters, attestationChallenge, credentialTimeoutSeconds, blacklist, credentialExtensions)|makeCredential(accountInformation, cryptoParameters, attestationChallenge, credentialTimeoutSeconds, blacklist)|makeCredential(accountInformation, cryptoParameters, attestationChallenge, credentialTimeoutSeconds)|makeCredential(accountInformation, cryptoParameters, attestationChallenge)" id="dom-webauthentication-makecredential">makeCredential()</dfn> method)</span><a class="self-link" href="#makeCredential"></a></h4>
    <p>With this method, a script can request the User Agent to create a new credential of a given type and persist it to the
 underlying platform, which may involve data storage managed by the browser or the OS. The user agent will prompt the user to
 approve this operation. On success, the promise will be resolved with a <code class="idl"><a data-link-type="idl" href="#scopedcredentialinfo" id="ref-for-scopedcredentialinfo-3">ScopedCredentialInfo</a></code> object describing the newly
@@ -594,24 +609,24 @@ created credential.</p>
    <p>This method takes the following parameters:</p>
    <ul>
     <li data-md="">
-     <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="accountInformation" data-noexport="" id="accountinformation">accountInformation<span class="dfn-panel" data-deco=""><b><a href="#accountinformation">#accountinformation</a></b><b>Referenced in:</b><span><a href="#ref-for-accountinformation-1">3.1.1. Create a new credential (makeCredential() method)</a></span></span></dfn> parameter specifies information about the user account for which the credential is being
+     <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="accountinformation">accountInformation</dfn> parameter specifies information about the user account for which the credential is being
 created. This is meant for later use by the authenticator when it needs to prompt the user to select a credential.</p>
     <li data-md="">
-     <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="cryptoParameters" data-noexport="" id="cryptoparameters">cryptoParameters<span class="dfn-panel" data-deco=""><b><a href="#cryptoparameters">#cryptoparameters</a></b><b>Referenced in:</b><span><a href="#ref-for-cryptoparameters-1">3.1.1. Create a new credential (makeCredential() method)</a> <a href="#ref-for-cryptoparameters-2">(2)</a> <a href="#ref-for-cryptoparameters-3">(3)</a> <a href="#ref-for-cryptoparameters-4">(4)</a></span></span></dfn> parameter supplies information about the desired properties of the credential to be created.
+     <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="cryptoparameters">cryptoParameters</dfn> parameter supplies information about the desired properties of the credential to be created.
 The sequence is ordered from most preferred to least preferred. The platform makes a best effort to create the most
 preferred credential that it can.</p>
     <li data-md="">
-     <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="attestationChallenge" data-noexport="" id="attestationchallenge">attestationChallenge<span class="dfn-panel" data-deco=""><b><a href="#attestationchallenge">#attestationchallenge</a></b><b>Referenced in:</b><span><a href="#ref-for-attestationchallenge-1">3.1.1. Create a new credential (makeCredential() method)</a></span></span></dfn> parameter contains a challenge intended to be used for generating the attestation
+     <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="attestationchallenge">attestationChallenge</dfn> parameter contains a challenge intended to be used for generating the attestation
 statement of the newly created credential.</p>
     <li data-md="">
-     <p>The optional <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="credentialTimeoutSeconds" data-noexport="" id="credentialtimeoutseconds">credentialTimeoutSeconds<span class="dfn-panel" data-deco=""><b><a href="#credentialtimeoutseconds">#credentialtimeoutseconds</a></b><b>Referenced in:</b><span><a href="#ref-for-credentialtimeoutseconds-1">3.1.1. Create a new credential (makeCredential() method)</a> <a href="#ref-for-credentialtimeoutseconds-2">(2)</a></span></span></dfn> parameter specifies a time, in seconds, that the caller is willing to wait
+     <p>The optional <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="credentialtimeoutseconds">credentialTimeoutSeconds</dfn> parameter specifies a time, in seconds, that the caller is willing to wait
 for the call to complete. This is treated as a hint, and may be overridden by the platform.</p>
     <li data-md="">
-     <p>The optional <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="blacklist" data-noexport="" id="blacklist">blacklist<span class="dfn-panel" data-deco=""><b><a href="#blacklist">#blacklist</a></b><b>Referenced in:</b><span><a href="#ref-for-blacklist-1">3.1.1. Create a new credential (makeCredential() method)</a> <a href="#ref-for-blacklist-2">(2)</a></span></span></dfn> parameter is intended for use by <a data-link-type="dfn" href="#webauthn-relying-party" id="ref-for-webauthn-relying-party-2">WebAuthn Relying Parties</a> that wish to limit the creation of multiple
+     <p>The optional <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="blacklist">blacklist</dfn> parameter is intended for use by <a data-link-type="dfn" href="#webauthn-relying-party" id="ref-for-webauthn-relying-party-2">WebAuthn Relying Parties</a> that wish to limit the creation of multiple
 credentials for the same account on a single authenticator. The platform is requested to return an error if the new
 credential would be created on an authenticator that also contains one of the credentials enumerated in this parameter.</p>
     <li data-md="">
-     <p>The optional <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="credentialExtensions" data-noexport="" id="credentialextensions">credentialExtensions<span class="dfn-panel" data-deco=""><b><a href="#credentialextensions">#credentialextensions</a></b><b>Referenced in:</b><span><a href="#ref-for-credentialextensions-1">3.1.1. Create a new credential (makeCredential() method)</a></span><span><a href="#ref-for-credentialextensions-2">5.3. Extending request parameters</a></span></span></dfn> parameter contains additional parameters requesting additional processing by
+     <p>The optional <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="credentialextensions">credentialExtensions</dfn> parameter contains additional parameters requesting additional processing by
 the client and authenticator. For example, the caller may request that only authenticators with certain capabilities be
 used to create the credential, or that additional information be returned in the attestation statement. Alternatively, the
 caller may specify an additional message that they would like the authenticator to display to the user. Extensions are
@@ -674,7 +689,7 @@ fields with the values returned from the authenticator. Resolve <var>promise</va
    </ol>
    <p>During the above process, the user agent SHOULD show some UI to the user to guide them in the process of selecting and
 authorizing an authenticator.</p>
-   <h4 class="heading settled" data-level="3.1.2" id="getAssertion"><span class="secno">3.1.2. </span><span class="content">Use an existing credential (<dfn class="dfn-paneled idl-code" data-dfn-for="WebAuthentication" data-dfn-type="method" data-export="" data-lt="getAssertion(assertionChallenge, assertionTimeoutSeconds, whitelist, assertionExtensions)|getAssertion(assertionChallenge, assertionTimeoutSeconds, whitelist)|getAssertion(assertionChallenge, assertionTimeoutSeconds)|getAssertion(assertionChallenge)" id="dom-webauthentication-getassertion">getAssertion()<span class="dfn-panel" data-deco=""><b><a href="#dom-webauthentication-getassertion">#dom-webauthentication-getassertion</a></b><b>Referenced in:</b><span><a href="#ref-for-dom-webauthentication-getassertion-1">3. Web Authentication API</a></span><span><a href="#ref-for-dom-webauthentication-getassertion-2">3.6. WebAuthn Assertion Extensions (dictionary WebAuthnExtensions)</a></span><span><a href="#ref-for-dom-webauthentication-getassertion-3">5. WebAuthn Extensions</a> <a href="#ref-for-dom-webauthentication-getassertion-4">(2)</a></span><span><a href="#ref-for-dom-webauthentication-getassertion-5">5.2. Defining extensions</a></span><span><a href="#ref-for-dom-webauthentication-getassertion-6">5.3. Extending request parameters</a> <a href="#ref-for-dom-webauthentication-getassertion-7">(2)</a></span></span></dfn> method)</span><a class="self-link" href="#getAssertion"></a></h4>
+   <h4 class="heading settled" data-level="3.1.2" id="getAssertion"><span class="secno">3.1.2. </span><span class="content">Use an existing credential (<dfn class="dfn-paneled idl-code" data-dfn-for="WebAuthentication" data-dfn-type="method" data-export="" data-lt="getAssertion(assertionChallenge, assertionTimeoutSeconds, whitelist, assertionExtensions)|getAssertion(assertionChallenge, assertionTimeoutSeconds, whitelist)|getAssertion(assertionChallenge, assertionTimeoutSeconds)|getAssertion(assertionChallenge)" id="dom-webauthentication-getassertion">getAssertion()</dfn> method)</span><a class="self-link" href="#getAssertion"></a></h4>
    <p>This method is used to discover and use an existing scoped credential, with the user’s consent. The script optionally specifies
 some criteria to indicate what credentials are acceptable to it. The user agent and/or platform locates credentials matching the
 specified criteria, and guides the user to pick one that the script should be allowed to use. The user may choose not to provide
@@ -682,16 +697,16 @@ a credential even if one is present, for example to maintain privacy.</p>
    <p>This method takes the following parameters:</p>
    <ul>
     <li data-md="">
-     <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="assertionChallenge" data-noexport="" id="assertionchallenge">assertionChallenge<span class="dfn-panel" data-deco=""><b><a href="#assertionchallenge">#assertionchallenge</a></b><b>Referenced in:</b><span><a href="#ref-for-assertionchallenge-1">3.1.2. Use an existing credential (getAssertion() method)</a></span></span></dfn> parameter contains a challenge that the selected authenticator is expected to sign to
+     <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="assertionchallenge">assertionChallenge</dfn> parameter contains a challenge that the selected authenticator is expected to sign to
 produce the assertion.</p>
     <li data-md="">
-     <p>The optional <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="assertionTimeoutSeconds" data-noexport="" id="assertiontimeoutseconds">assertionTimeoutSeconds<span class="dfn-panel" data-deco=""><b><a href="#assertiontimeoutseconds">#assertiontimeoutseconds</a></b><b>Referenced in:</b><span><a href="#ref-for-assertiontimeoutseconds-1">3.1.2. Use an existing credential (getAssertion() method)</a> <a href="#ref-for-assertiontimeoutseconds-2">(2)</a></span></span></dfn> parameter specifies a time, in seconds, that the caller is willing to wait
+     <p>The optional <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="assertiontimeoutseconds">assertionTimeoutSeconds</dfn> parameter specifies a time, in seconds, that the caller is willing to wait
 for the call to complete. This is treated as a hint, and may be overridden by the platform.</p>
     <li data-md="">
-     <p>The optional <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="whitelist" data-noexport="" id="whitelist">whitelist<span class="dfn-panel" data-deco=""><b><a href="#whitelist">#whitelist</a></b><b>Referenced in:</b><span><a href="#ref-for-whitelist-1">3.1.2. Use an existing credential (getAssertion() method)</a> <a href="#ref-for-whitelist-2">(2)</a></span></span></dfn> member contains a list of credentials acceptable to the caller, in order of the caller’s
+     <p>The optional <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="whitelist">whitelist</dfn> member contains a list of credentials acceptable to the caller, in order of the caller’s
 preference.</p>
     <li data-md="">
-     <p>The optional <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="assertionExtensions" data-noexport="" id="assertionextensions">assertionExtensions<span class="dfn-panel" data-deco=""><b><a href="#assertionextensions">#assertionextensions</a></b><b>Referenced in:</b><span><a href="#ref-for-assertionextensions-1">3.1.2. Use an existing credential (getAssertion() method)</a></span><span><a href="#ref-for-assertionextensions-2">5.3. Extending request parameters</a></span></span></dfn> parameter contains additional parameters requesting additional processing by the
+     <p>The optional <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="assertionextensions">assertionExtensions</dfn> parameter contains additional parameters requesting additional processing by the
 client and authenticator. For example, if transaction confirmation is sought from the user, then the prompt string would be
 included in an extension. Extensions are defined in a companion specification.</p>
    </ul>
@@ -746,7 +761,7 @@ with the values returned from the authenticator. Resolve <var>promise</var> with
    </ol>
    <p>During the above process, the user agent SHOULD show some UI to the user to guide them in the process of selecting and
 authorizing an authenticator with which to complete the operation.</p>
-   <h3 class="heading settled" data-level="3.2" id="iface-credentialInfo"><span class="secno">3.2. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export="" data-lt="ScopedCredentialInfo" id="scopedcredentialinfo">ScopedCredentialInfo<span class="dfn-panel" data-deco=""><b><a href="#scopedcredentialinfo">#scopedcredentialinfo</a></b><b>Referenced in:</b><span><a href="#ref-for-scopedcredentialinfo-1">3. Web Authentication API</a> <a href="#ref-for-scopedcredentialinfo-2">(2)</a></span><span><a href="#ref-for-scopedcredentialinfo-3">3.1.1. Create a new credential (makeCredential() method)</a> <a href="#ref-for-scopedcredentialinfo-4">(2)</a></span></span></dfn> Interface</span><a class="self-link" href="#iface-credentialInfo"></a></h3>
+   <h3 class="heading settled" data-level="3.2" id="iface-credentialInfo"><span class="secno">3.2. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="scopedcredentialinfo">ScopedCredentialInfo</dfn> Interface</span><a class="self-link" href="#iface-credentialInfo"></a></h3>
    <div>
      This interface represents a newly-created scoped credential. It contains information about the credential that can be used
     to locate it later for use, and also contains metadata that can be used by the <a data-link-type="dfn" href="#webauthn-relying-party" id="ref-for-webauthn-relying-party-3">WebAuthn Relying Party</a> to assess the strength of the
@@ -758,7 +773,7 @@ authorizing an authenticator with which to complete the operation.</p>
     information about the credential and the authenticator it is held in, such as the level of security assurance provided by
     the authenticator.</p>
    </div>
-   <h3 class="heading settled" data-level="3.3" id="iface-account"><span class="secno">3.3. </span><span class="content">User Account Information (dictionary <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" data-lt="Account" id="dictdef-account">Account<span class="dfn-panel" data-deco=""><b><a href="#dictdef-account">#dictdef-account</a></b><b>Referenced in:</b><span><a href="#ref-for-dictdef-account-1">3. Web Authentication API</a> <a href="#ref-for-dictdef-account-2">(2)</a></span><span><a href="#ref-for-dictdef-account-3">4.1.1. The authenticatorMakeCredential operation</a></span></span></dfn>)</span><a class="self-link" href="#iface-account"></a></h3>
+   <h3 class="heading settled" data-level="3.3" id="iface-account"><span class="secno">3.3. </span><span class="content">User Account Information (dictionary <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-account">Account</dfn>)</span><a class="self-link" href="#iface-account"></a></h3>
    <div>
      This dictionary is used by the caller to specify information about the user account and <a data-link-type="dfn" href="#webauthn-relying-party" id="ref-for-webauthn-relying-party-4">WebAuthn Relying Party</a> with which a credential
     is to be associated. It is intended to help the authenticator in providing a friendly credential selection interface for the
@@ -773,14 +788,14 @@ authorizing an authenticator with which to complete the operation.</p>
     <p>The <dfn data-dfn-for="Account" data-dfn-type="dfn" data-noexport="" id="account-imageurl">imageURL<a class="self-link" href="#account-imageurl"></a></dfn> member contains a URL that resolves to the user’s account image. This may be a URL that can be used
     to retrieve an image containing the user’s current avatar, or a data URI that contains the image data.</p>
    </div>
-   <h3 class="heading settled" data-level="3.4" id="credential-params"><span class="secno">3.4. </span><span class="content">Parameters for Credential Generation (dictionary <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" data-lt="ScopedCredentialParameters" id="dictdef-scopedcredentialparameters">ScopedCredentialParameters<span class="dfn-panel" data-deco=""><b><a href="#dictdef-scopedcredentialparameters">#dictdef-scopedcredentialparameters</a></b><b>Referenced in:</b><span><a href="#ref-for-dictdef-scopedcredentialparameters-1">3. Web Authentication API</a> <a href="#ref-for-dictdef-scopedcredentialparameters-2">(2)</a></span><span><a href="#ref-for-dictdef-scopedcredentialparameters-3">3.1.1. Create a new credential (makeCredential() method)</a></span></span></dfn>)</span><a class="self-link" href="#credential-params"></a></h3>
+   <h3 class="heading settled" data-level="3.4" id="credential-params"><span class="secno">3.4. </span><span class="content">Parameters for Credential Generation (dictionary <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-scopedcredentialparameters">ScopedCredentialParameters</dfn>)</span><a class="self-link" href="#credential-params"></a></h3>
    <div>
      This dictionary is used to supply additional parameters when creating a new credential. 
     <p>The <dfn data-dfn-for="ScopedCredentialParameters" data-dfn-type="dfn" data-noexport="" id="scopedcredentialparameters-type">type<a class="self-link" href="#scopedcredentialparameters-type"></a></dfn> member specifies the type of credential to be created.</p>
     <p>The <dfn data-dfn-for="ScopedCredentialParameters" data-dfn-type="dfn" data-noexport="" id="scopedcredentialparameters-algorithm">algorithm<a class="self-link" href="#scopedcredentialparameters-algorithm"></a></dfn> member specifies the cryptographic algorithm with which the newly generated credential will be
     used.</p>
    </div>
-   <h3 class="heading settled" data-level="3.5" id="iface-assertion"><span class="secno">3.5. </span><span class="content">WebAuthn Assertion (interface <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export="" data-lt="WebAuthnAssertion" id="webauthnassertion">WebAuthnAssertion<span class="dfn-panel" data-deco=""><b><a href="#webauthnassertion">#webauthnassertion</a></b><b>Referenced in:</b><span><a href="#ref-for-webauthnassertion-1">3. Web Authentication API</a> <a href="#ref-for-webauthnassertion-2">(2)</a></span><span><a href="#ref-for-webauthnassertion-3">3.1.2. Use an existing credential (getAssertion() method)</a></span><span><a href="#ref-for-webauthnassertion-4">4.2.3. Generating a signature</a></span></span></dfn>)</span><a class="self-link" href="#iface-assertion"></a></h3>
+   <h3 class="heading settled" data-level="3.5" id="iface-assertion"><span class="secno">3.5. </span><span class="content">WebAuthn Assertion (interface <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="webauthnassertion">WebAuthnAssertion</dfn>)</span><a class="self-link" href="#iface-assertion"></a></h3>
    <p>Scoped credentials produce a cryptographic signature that provides proof of possession of a private key as well as evidence of
 user consent to a specific transaction. The structure of these signatures is defined as follows.</p>
    <div>
@@ -789,13 +804,13 @@ user consent to a specific transaction. The structure of these signatures is def
     <p>The <b><em>authenticatorData</em></b> member contains the serialized data returned by the authenticator. See <a href="#sec-authenticator-data">§4.2.2 Authenticator data</a>.</p>
     <p>The <dfn data-dfn-for="WebAuthnAssertion" data-dfn-type="dfn" data-noexport="" id="webauthnassertion-signature">signature<a class="self-link" href="#webauthnassertion-signature"></a></dfn> member contains the raw signature returned from the authenticator. See <a href="#authenticator-signature">§4.2.3 Generating a signature</a>.</p>
    </div>
-   <h3 class="heading settled" data-level="3.6" id="iface-assertion-extensions"><span class="secno">3.6. </span><span class="content">WebAuthn Assertion Extensions (dictionary <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" data-lt="WebAuthnExtensions" id="dictdef-webauthnextensions">WebAuthnExtensions<span class="dfn-panel" data-deco=""><b><a href="#dictdef-webauthnextensions">#dictdef-webauthnextensions</a></b><b>Referenced in:</b><span><a href="#ref-for-dictdef-webauthnextensions-1">3. Web Authentication API</a> <a href="#ref-for-dictdef-webauthnextensions-2">(2)</a> <a href="#ref-for-dictdef-webauthnextensions-3">(3)</a></span><span><a href="#ref-for-dictdef-webauthnextensions-4">4.2.1. Client data used in WebAuthn signatures (dictionary ClientData)</a></span></span></dfn>)</span><a class="self-link" href="#iface-assertion-extensions"></a></h3>
+   <h3 class="heading settled" data-level="3.6" id="iface-assertion-extensions"><span class="secno">3.6. </span><span class="content">WebAuthn Assertion Extensions (dictionary <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-webauthnextensions">WebAuthnExtensions</dfn>)</span><a class="self-link" href="#iface-assertion-extensions"></a></h3>
    <p>This is a dictionary containing zero or more extensions as defined in <a href="#extensions">§5 WebAuthn Extensions</a>. An extension is an additional parameter
 that can be passed to the <a data-link-type="functionish" href="#dom-webauthentication-getassertion" id="ref-for-dom-webauthentication-getassertion-2">getAssertion()</a> method and triggers some additional processing by the client platform and/or the
 authenticator.</p>
    <p>If the caller wants to pass extensions to the platform, it SHOULD do so by adding one entry per extension to this dictionary
 with the extension identifier as the key, and the extension’s value as the value (see <a href="#signature-format">§4.2 Signature Format</a> for details).</p>
-   <h3 class="heading settled" data-level="3.7" id="iface-attestation"><span class="secno">3.7. </span><span class="content">Credential Attestation Statement (interface <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export="" data-lt="WebAuthnAttestation" id="webauthnattestation">WebAuthnAttestation<span class="dfn-panel" data-deco=""><b><a href="#webauthnattestation">#webauthnattestation</a></b><b>Referenced in:</b><span><a href="#ref-for-webauthnattestation-1">3. Web Authentication API</a> <a href="#ref-for-webauthnattestation-2">(2)</a></span></span></dfn>)</span><a class="self-link" href="#iface-attestation"></a></h3>
+   <h3 class="heading settled" data-level="3.7" id="iface-attestation"><span class="secno">3.7. </span><span class="content">Credential Attestation Statement (interface <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="webauthnattestation">WebAuthnAttestation</dfn>)</span><a class="self-link" href="#iface-attestation"></a></h3>
    <p>Authenticators also provide some form of attestation. The basic requirement is that the authenticator can produce, for each
 credential public key, attestation information that can be verified by a <a data-link-type="dfn" href="#webauthn-relying-party" id="ref-for-webauthn-relying-party-5">WebAuthn Relying Party</a>. Typically, this information contains a
 signature by an attesting key over the attested public key and a challenge, as well as a certificate or similar information
@@ -814,14 +829,14 @@ the scope of this specification. It contains all the information that the WebAut
 well as to decode and validate the bindings of both the client and authenticator data.</p>
    <h3 class="heading settled" data-level="3.8" id="supporting-data-structures"><span class="secno">3.8. </span><span class="content">Supporting Data Structures</span><a class="self-link" href="#supporting-data-structures"></a></h3>
    <p>The scoped credential type uses certain data structures that are specified in supporting specifications. These are as follows.</p>
-   <h4 class="heading settled" data-level="3.8.1" id="credentialType"><span class="secno">3.8.1. </span><span class="content">Credential Type enumeration (enum <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export="" data-lt="CredentialType" id="enumdef-credentialtype">CredentialType<span class="dfn-panel" data-deco=""><b><a href="#enumdef-credentialtype">#enumdef-credentialtype</a></b><b>Referenced in:</b><span><a href="#ref-for-enumdef-credentialtype-1">3. Web Authentication API</a> <a href="#ref-for-enumdef-credentialtype-2">(2)</a> <a href="#ref-for-enumdef-credentialtype-3">(3)</a></span><span><a href="#ref-for-enumdef-credentialtype-4">3.1.1. Create a new credential (makeCredential() method)</a></span><span><a href="#ref-for-enumdef-credentialtype-5">3.8.2. Unique Identifier for Credential (interface Credential)</a></span><span><a href="#ref-for-enumdef-credentialtype-6">4.1.1. The authenticatorMakeCredential operation</a></span></span></dfn>)</span><a class="self-link" href="#credentialType"></a></h4>
+   <h4 class="heading settled" data-level="3.8.1" id="credentialType"><span class="secno">3.8.1. </span><span class="content">Credential Type enumeration (enum <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export="" id="enumdef-credentialtype">CredentialType</dfn>)</span><a class="self-link" href="#credentialType"></a></h4>
    <div>
      This enumeration defines the valid credential types. It is an extension point; values may be added to it in the future, as
     more credential types are defined. The values of this enumeration are used for versioning the WebAuthn assertion and
     attestation statement according to the type of the authenticator. 
     <p>Currently one credential type is defined, namely "<dfn data-dfn-for="CredentialType" data-dfn-type="dfn" data-noexport="" id="credentialtype-scopedcred">ScopedCred<a class="self-link" href="#credentialtype-scopedcred"></a></dfn>".</p>
    </div>
-   <h4 class="heading settled" data-level="3.8.2" id="credential-identifier"><span class="secno">3.8.2. </span><span class="content">Unique Identifier for Credential (interface <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export="" data-lt="Credential" id="credential">Credential<span class="dfn-panel" data-deco=""><b><a href="#credential">#credential</a></b><b>Referenced in:</b><span><a href="#ref-for-credential-1">3. Web Authentication API</a> <a href="#ref-for-credential-2">(2)</a> <a href="#ref-for-credential-3">(3)</a> <a href="#ref-for-credential-4">(4)</a> <a href="#ref-for-credential-5">(5)</a></span><span><a href="#ref-for-credential-6">4.1.1. The authenticatorMakeCredential operation</a></span></span></dfn>)</span><a class="self-link" href="#credential-identifier"></a></h4>
+   <h4 class="heading settled" data-level="3.8.2" id="credential-identifier"><span class="secno">3.8.2. </span><span class="content">Unique Identifier for Credential (interface <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="credential">Credential</dfn>)</span><a class="self-link" href="#credential-identifier"></a></h4>
    <p>This interface contains the attributes that are returned to the caller when a new credential is created, and can be used later
 by the caller to select a credential for use.</p>
    <div>
@@ -849,7 +864,7 @@ which is unique (or extremely unlikely to be duplicated) among all scoped creden
 defines an authenticator session. An authenticator must maintain isolation between sessions. It may do this by only allowing one
 session to exist at any particular time, or by providing more complicated session management.</p>
    <p>The following operations can be invoked by the client in an authenticator session.</p>
-   <h4 class="heading settled" data-level="4.1.1" id="op-make-cred"><span class="secno">4.1.1. </span><span class="content">The <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="authenticatorMakeCredential" data-noexport="" id="authenticatormakecredential">authenticatorMakeCredential<span class="dfn-panel" data-deco=""><b><a href="#authenticatormakecredential">#authenticatormakecredential</a></b><b>Referenced in:</b><span><a href="#ref-for-authenticatormakecredential-1">3.1.1. Create a new credential (makeCredential() method)</a></span><span><a href="#ref-for-authenticatormakecredential-2">4.1.3. The authenticatorCancel operation</a> <a href="#ref-for-authenticatormakecredential-3">(2)</a></span></span></dfn> operation</span><a class="self-link" href="#op-make-cred"></a></h4>
+   <h4 class="heading settled" data-level="4.1.1" id="op-make-cred"><span class="secno">4.1.1. </span><span class="content">The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="authenticatormakecredential">authenticatorMakeCredential</dfn> operation</span><a class="self-link" href="#op-make-cred"></a></h4>
    <p>This operation must be invoked in an authenticator session which has no other operations in progress. It takes the following
 input parameters:</p>
    <ul>
@@ -880,7 +895,7 @@ it will be able to retrieve the RP ID later, given the credential ID.</p>
    <p>On successful completion of this operation, the authenticator returns the type and unique identifier of this new credential to
 the user agent.</p>
    <p>If the user refuses consent, the authenticator returns an appropriate error status to the client.</p>
-   <h4 class="heading settled" data-level="4.1.2" id="op-get-assertion"><span class="secno">4.1.2. </span><span class="content">The <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="authenticatorGetAssertion" data-noexport="" id="authenticatorgetassertion">authenticatorGetAssertion<span class="dfn-panel" data-deco=""><b><a href="#authenticatorgetassertion">#authenticatorgetassertion</a></b><b>Referenced in:</b><span><a href="#ref-for-authenticatorgetassertion-1">3.1.2. Use an existing credential (getAssertion() method)</a></span><span><a href="#ref-for-authenticatorgetassertion-2">4.1.3. The authenticatorCancel operation</a> <a href="#ref-for-authenticatorgetassertion-3">(2)</a></span></span></dfn> operation</span><a class="self-link" href="#op-get-assertion"></a></h4>
+   <h4 class="heading settled" data-level="4.1.2" id="op-get-assertion"><span class="secno">4.1.2. </span><span class="content">The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="authenticatorgetassertion">authenticatorGetAssertion</dfn> operation</span><a class="self-link" href="#op-get-assertion"></a></h4>
    <p>This operation must be invoked in an authenticator session which has no other operations in progress. It takes the following
 input parameters:</p>
    <ul>
@@ -903,7 +918,7 @@ private key and constructs an assertion as specified in <a href="#signature-form
    <p>If the authenticator cannot find any credential corresponding to the specified WebAuthn Relying Party that matches the specified criteria, it
 terminates the operation and returns an error.</p>
    <p>If the user refuses consent, the authenticator returns an appropriate error status to the client.</p>
-   <h4 class="heading settled" data-level="4.1.3" id="op-cancel"><span class="secno">4.1.3. </span><span class="content">The <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="authenticatorCancel" data-noexport="" id="authenticatorcancel">authenticatorCancel<span class="dfn-panel" data-deco=""><b><a href="#authenticatorcancel">#authenticatorcancel</a></b><b>Referenced in:</b><span><a href="#ref-for-authenticatorcancel-1">3.1.1. Create a new credential (makeCredential() method)</a> <a href="#ref-for-authenticatorcancel-2">(2)</a></span><span><a href="#ref-for-authenticatorcancel-3">3.1.2. Use an existing credential (getAssertion() method)</a> <a href="#ref-for-authenticatorcancel-4">(2)</a></span></span></dfn> operation</span><a class="self-link" href="#op-cancel"></a></h4>
+   <h4 class="heading settled" data-level="4.1.3" id="op-cancel"><span class="secno">4.1.3. </span><span class="content">The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="authenticatorcancel">authenticatorCancel</dfn> operation</span><a class="self-link" href="#op-cancel"></a></h4>
    <p>This operation takes no input parameters and returns no result.</p>
    <p>When this operation is invoked by the client in an authenticator session, it has the effect of terminating any <a data-link-type="dfn" href="#authenticatormakecredential" id="ref-for-authenticatormakecredential-2">authenticatorMakeCredential</a> or <a data-link-type="dfn" href="#authenticatorgetassertion" id="ref-for-authenticatorgetassertion-2">authenticatorGetAssertion</a> operation currently in progress in that authenticator
 session. The authenticator stops prompting for, or accepting, any user input related to authorizing the canceled operation. The
@@ -945,7 +960,7 @@ added by the authenticator, referred to as the authenticator data. The client da
 otherwise not interested in its contents. To save bandwidth and processing requirements on the authenticator, the client
 platform hashes the client data and sends only the result to the authenticator. The authenticator signs over the combination of
 this hash, and its own authenticator data.</p>
-   <h4 class="heading settled" data-level="4.2.1" id="sec-client-data"><span class="secno">4.2.1. </span><span class="content">Client data used in WebAuthn signatures (dictionary <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" data-lt="ClientData" id="dictdef-clientdata">ClientData<span class="dfn-panel" data-deco=""><b><a href="#dictdef-clientdata">#dictdef-clientdata</a></b><b>Referenced in:</b><span><a href="#ref-for-dictdef-clientdata-1">4.2.1. Client data used in WebAuthn signatures (dictionary ClientData)</a></span><span><a href="#ref-for-dictdef-clientdata-2">4.2.3. Generating a signature</a> <a href="#ref-for-dictdef-clientdata-3">(2)</a></span><span><a href="#ref-for-dictdef-clientdata-4">4.3.2.3.1. Signature</a></span><span><a href="#ref-for-dictdef-clientdata-5">5. WebAuthn Extensions</a> <a href="#ref-for-dictdef-clientdata-6">(2)</a></span><span><a href="#ref-for-dictdef-clientdata-7">5.2. Defining extensions</a> <a href="#ref-for-dictdef-clientdata-8">(2)</a></span><span><a href="#ref-for-dictdef-clientdata-9">5.3. Extending request parameters</a></span><span><a href="#ref-for-dictdef-clientdata-10">5.4. Extending client processing</a> <a href="#ref-for-dictdef-clientdata-11">(2)</a></span></span></dfn>)</span><a class="self-link" href="#sec-client-data"></a></h4>
+   <h4 class="heading settled" data-level="4.2.1" id="sec-client-data"><span class="secno">4.2.1. </span><span class="content">Client data used in WebAuthn signatures (dictionary <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-clientdata">ClientData</dfn>)</span><a class="self-link" href="#sec-client-data"></a></h4>
    <p>The client data represents the contextual bindings of both the WebAuthn Relying Party and the client platform. It is a key-value mapping with
 string-valued keys. Values may be any type that has a valid encoding in JSON. Its structure is defined by the following Web IDL.</p>
 <pre class="idl def">dictionary <a class="idl-code" data-link-type="dictionary" href="#dictdef-clientdata" id="ref-for-dictdef-clientdata-1">ClientData</a> {
@@ -960,10 +975,10 @@ string-valued keys. Values may be any type that has a valid encoding in JSON. It
      The <dfn data-dfn-for="ClientData" data-dfn-type="dfn" data-noexport="" id="clientdata-challenge">challenge<a class="self-link" href="#clientdata-challenge"></a></dfn> member contains the base64url encoding of the challenge provided by the RP. 
     <p>The <dfn data-dfn-for="ClientData" data-dfn-type="dfn" data-noexport="" id="clientdata-facet">facet<a class="self-link" href="#clientdata-facet"></a></dfn> member contains the fully qualified web origin of the requester, as provided to the authenticator by
     the client, in the syntax defined by <a data-link-type="biblio" href="#biblio-rfc6454">[RFC6454]</a>.</p>
-    <p>The <dfn class="dfn-paneled" data-dfn-for="ClientData" data-dfn-type="dfn" data-lt="hashAlg" data-noexport="" id="clientdata-hashalg">hashAlg<span class="dfn-panel" data-deco=""><b><a href="#clientdata-hashalg">#clientdata-hashalg</a></b><b>Referenced in:</b><span><a href="#ref-for-clientdata-hashalg-1">4.2.3. Generating a signature</a> <a href="#ref-for-clientdata-hashalg-2">(2)</a></span></span></dfn> member specifies the hash algorithm used to compute clientDataHash (see <a href="#authenticator-signature">§4.2.3 Generating a signature</a>). Use "S256" for SHA-256, "S384" for SHA384, "S512" for SHA512, and "SM3" for SM3 (see <a href="#iana-considerations">§7 IANA Considerations</a>).</p>
+    <p>The <dfn class="dfn-paneled" data-dfn-for="ClientData" data-dfn-type="dfn" data-noexport="" id="clientdata-hashalg">hashAlg</dfn> member specifies the hash algorithm used to compute clientDataHash (see <a href="#authenticator-signature">§4.2.3 Generating a signature</a>). Use "S256" for SHA-256, "S384" for SHA384, "S512" for SHA512, and "SM3" for SM3 (see <a href="#iana-considerations">§7 IANA Considerations</a>).</p>
     <p>The <dfn data-dfn-for="ClientData" data-dfn-type="dfn" data-noexport="" id="clientdata-tokenbinding">tokenBinding<a class="self-link" href="#clientdata-tokenbinding"></a></dfn> member contains a JsonWebKey object as defined by <a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#JsonWebKey-dictionary">Web Cryptography API §JsonWebKey-dictionary</a> describing the public key that this client uses for the Token Binding protocol when communicating with the WebAuthn Relying Party. This can be
     omitted if no Token Binding has been negotiated between the client and the WebAuthn Relying Party.</p>
-    <p>The optional <dfn class="dfn-paneled" data-dfn-for="ClientData" data-dfn-type="dfn" data-lt="extensions" data-noexport="" id="clientdata-extensions">extensions<span class="dfn-panel" data-deco=""><b><a href="#clientdata-extensions">#clientdata-extensions</a></b><b>Referenced in:</b><span><a href="#ref-for-clientdata-extensions-1">5.4. Extending client processing</a></span></span></dfn> member contains additional parameters generated by processing the extensions passed in
+    <p>The optional <dfn class="dfn-paneled" data-dfn-for="ClientData" data-dfn-type="dfn" data-noexport="" id="clientdata-extensions">extensions</dfn> member contains additional parameters generated by processing the extensions passed in
     by the WebAuthn Relying Party. WebAuthn extensions are detailed in Section <a href="#extensions">§5 WebAuthn Extensions</a>.</p>
    </div>
    <h4 class="heading settled" data-level="4.2.2" id="sec-authenticator-data"><span class="secno">4.2.2. </span><span class="content">Authenticator data</span><a class="self-link" href="#sec-authenticator-data"></a></h4>
@@ -1002,7 +1017,7 @@ extension data is included.</p>
    <p>The figure below shows a visual representation of the authenticator data structure.</p>
    <figure>
      <img src="img/fido-signature-formats-figure1.svg"> 
-    <figcaption><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="authenticatorData" data-noexport="" id="authenticatordata">authenticatorData<span class="dfn-panel" data-deco=""><b><a href="#authenticatordata">#authenticatordata</a></b><b>Referenced in:</b><span><a href="#ref-for-authenticatordata-1">4.2.3. Generating a signature</a> <a href="#ref-for-authenticatordata-2">(2)</a></span><span><a href="#ref-for-authenticatordata-3">5. WebAuthn Extensions</a></span></span></dfn> layout.</figcaption>
+    <figcaption><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="authenticatordata">authenticatorData</dfn> layout.</figcaption>
    </figure>
    <p class="note" role="note">Note: The <code>signatureData</code> describes its own length: If the ED flag is not set, it is always 5 bytes long. If the ED flag is set,
 it is 5 bytes plus the CBOR map that follows.</p>
@@ -1012,9 +1027,9 @@ it is 5 bytes plus the CBOR map that follows.</p>
     <li data-md="">
      <p>Represent the parameters passed in by the RP in the form of a <code class="idl"><a data-link-type="idl" href="#dictdef-clientdata" id="ref-for-dictdef-clientdata-2">ClientData</a></code> structure.</p>
     <li data-md="">
-     <p>Let <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="clientDataJSON" data-noexport="" id="clientdatajson">clientDataJSON<span class="dfn-panel" data-deco=""><b><a href="#clientdatajson">#clientdatajson</a></b><b>Referenced in:</b><span><a href="#ref-for-clientdatajson-1">3.7. Credential Attestation Statement (interface WebAuthnAttestation)</a></span><span><a href="#ref-for-clientdatajson-2">4.2.3. Generating a signature</a> <a href="#ref-for-clientdatajson-3">(2)</a> <a href="#ref-for-clientdatajson-4">(3)</a></span></span></dfn> be the UTF-8 encoded JSON serialization <a data-link-type="biblio" href="#biblio-rfc7159">[RFC7159]</a> of this ClientData dictionary.</p>
+     <p>Let <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="clientdatajson">clientDataJSON</dfn> be the UTF-8 encoded JSON serialization <a data-link-type="biblio" href="#biblio-rfc7159">[RFC7159]</a> of this ClientData dictionary.</p>
     <li data-md="">
-     <p>Let <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="clientDataHash" data-noexport="" id="clientdatahash">clientDataHash<span class="dfn-panel" data-deco=""><b><a href="#clientdatahash">#clientdatahash</a></b><b>Referenced in:</b><span><a href="#ref-for-clientdatahash-1">4.2.3. Generating a signature</a> <a href="#ref-for-clientdatahash-2">(2)</a></span></span></dfn> be the hash (computed using <a data-link-type="dfn" href="#clientdata-hashalg" id="ref-for-clientdata-hashalg-1">hashAlg</a>) of <a data-link-type="dfn" href="#clientdatajson" id="ref-for-clientdatajson-2">clientDataJSON</a>, as an array.</p>
+     <p>Let <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="clientdatahash">clientDataHash</dfn> be the hash (computed using <a data-link-type="dfn" href="#clientdata-hashalg" id="ref-for-clientdata-hashalg-1">hashAlg</a>) of <a data-link-type="dfn" href="#clientdatajson" id="ref-for-clientdatajson-2">clientDataJSON</a>, as an array.</p>
    </ol>
    <p>The <var>clientDataHash</var> value is delivered to the authenticator.</p>
    <p>The hash algorithm <a data-link-type="dfn" href="#clientdata-hashalg" id="ref-for-clientdata-hashalg-2">hashAlg</a> used to compute <a data-link-type="dfn" href="#clientdatahash" id="ref-for-clientdatahash-1">clientDataHash</a> is included in the <code class="idl"><a data-link-type="idl" href="#dictdef-clientdata" id="ref-for-dictdef-clientdata-3">ClientData</a></code> object. This way it
@@ -1087,7 +1102,7 @@ computed and formatted. This section defines these details.</p>
 method. Encoding this format can even be implemented by <a data-link-type="dfn" href="#authenticator" id="ref-for-authenticator-8">authenticators</a> with very limited resources (e.g., secure
 elements).</p>
    <p>A Packed Attestation statement has the following format:</p>
-<pre class="idl def">interface <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export="" data-lt="AttestationStatement" id="attestationstatement">AttestationStatement<span class="dfn-panel" data-deco=""><b><a href="#attestationstatement">#attestationstatement</a></b><b>Referenced in:</b><span><a href="#ref-for-attestationstatement-1">4.2.3. Generating a signature</a></span></span></dfn> {
+<pre class="idl def">interface <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="attestationstatement">AttestationStatement</dfn> {
     readonly    attribute unsigned long <dfn class="idl-code" data-dfn-for="AttestationStatement" data-dfn-type="attribute" data-export="" data-readonly="" data-type="unsigned long" id="dom-attestationstatement-version">version<a class="self-link" href="#dom-attestationstatement-version"></a></dfn>;
     readonly    attribute ArrayBuffer   <dfn class="idl-code" data-dfn-for="AttestationStatement" data-dfn-type="attribute" data-export="" data-readonly="" data-type="ArrayBuffer" id="dom-attestationstatement-claimedaaguid">claimedAAGUID<a class="self-link" href="#dom-attestationstatement-claimedaaguid"></a></dfn>;
     readonly    attribute DOMString[]   <dfn class="idl-code" data-dfn-for="AttestationStatement" data-dfn-type="attribute" data-export="" data-readonly="" data-type="DOMString[]" id="dom-attestationstatement-x5c">x5c<a class="self-link" href="#dom-attestationstatement-x5c"></a></dfn>;
@@ -1506,7 +1521,7 @@ be used for extensions not defined by the W3C.</p>
     In such cases, the WebAuthn Relying Party would have no indication whether the extension was supported or processed by the client and/or
     authenticator.</p>
    <h3 class="heading settled" data-level="5.3" id="extension-request-parameters"><span class="secno">5.3. </span><span class="content">Extending request parameters</span><a class="self-link" href="#extension-request-parameters"></a></h3>
-   <p>An extension defines two request arguments. The <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="client argument" data-noexport="" id="client-argument">client argument<span class="dfn-panel" data-deco=""><b><a href="#client-argument">#client-argument</a></b><b>Referenced in:</b><span><a href="#ref-for-client-argument-1">5.3. Extending request parameters</a></span></span></dfn> is passed from the <a data-link-type="dfn" href="#webauthn-relying-party" id="ref-for-webauthn-relying-party-10">WebAuthn Relying Party</a> to the client in the <code class="idl"><a data-link-type="idl" href="#dom-webauthentication-getassertion" id="ref-for-dom-webauthentication-getassertion-6">getAssertion()</a></code> or <code class="idl"><a data-link-type="idl" href="#dom-webauthentication-makecredential" id="ref-for-dom-webauthentication-makecredential-6">makeCredential()</a></code> call, while the <dfn data-dfn-type="dfn" data-noexport="" id="authenticator-argument">authenticator argument<a class="self-link" href="#authenticator-argument"></a></dfn> is passed from the client to the
+   <p>An extension defines two request arguments. The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="client-argument">client argument</dfn> is passed from the <a data-link-type="dfn" href="#webauthn-relying-party" id="ref-for-webauthn-relying-party-10">WebAuthn Relying Party</a> to the client in the <code class="idl"><a data-link-type="idl" href="#dom-webauthentication-getassertion" id="ref-for-dom-webauthentication-getassertion-6">getAssertion()</a></code> or <code class="idl"><a data-link-type="idl" href="#dom-webauthentication-makecredential" id="ref-for-dom-webauthentication-makecredential-6">makeCredential()</a></code> call, while the <dfn data-dfn-type="dfn" data-noexport="" id="authenticator-argument">authenticator argument<a class="self-link" href="#authenticator-argument"></a></dfn> is passed from the client to the
 authenticator during the processing of these calls.</p>
    <p>Extension definitions MUST specify the valid values for their client argument. Clients are free to ignore extensions with an
 invalid client argument. Specifying an authenticator argument is optional, since some extensions may only affect client
@@ -1628,7 +1643,7 @@ rendering engine to be used and also supports a richer visual appearance.</p>
       <li data-md="">
        <p>one UTF-8 encoded string <dfn data-dfn-type="dfn" data-noexport="" id="contenttype">contentType<a class="self-link" href="#contenttype"></a></dfn>, containing the MIME-Type of the content, e.g. "image/png"</p>
       <li data-md="">
-       <p>and the <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="content" data-noexport="" id="content">content<span class="dfn-panel" data-deco=""><b><a href="#content">#content</a></b><b>Referenced in:</b><span><a href="#ref-for-content-1">6.1. Transaction authorization</a> <a href="#ref-for-content-2">(2)</a> <a href="#ref-for-content-3">(3)</a> <a href="#ref-for-content-4">(4)</a> <a href="#ref-for-content-5">(5)</a></span></span></dfn> itself, encoded as CBOR byte array.</p>
+       <p>and the <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="content">content</dfn> itself, encoded as CBOR byte array.</p>
      </ol>
     <dt data-md="">
      <p>Client processing</p>
@@ -1666,7 +1681,7 @@ credential. It is intended primarily for WebAuthn Relying Parties that wish to t
      <p>Each AAGUID corresponds to an authenticator attestation that is acceptable to the WebAuthn Relying Party for this credential creation. The
 list is ordered by decreasing preference.</p>
      <p>An AAGUID is defined as an array containing the globally unique identifier of the authenticator attestation being sought.</p>
-<pre class="idl highlight def">typedef <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource">BufferSource</a> <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export="" data-lt="AAGUID" id="typedefdef-aaguid">AAGUID<span class="dfn-panel" data-deco=""><b><a href="#typedefdef-aaguid">#typedefdef-aaguid</a></b><b>Referenced in:</b><span><a href="#ref-for-typedefdef-aaguid-1">6.2. Authenticator Selection Extension</a></span></span></dfn>;
+<pre class="idl highlight def">typedef <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource">BufferSource</a> <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export="" id="typedefdef-aaguid">AAGUID</dfn>;
 </pre>
     <dt data-md="">
      <p>Client processing</p>
@@ -2115,29 +2130,29 @@ signed by this credential are rejected.</p>
    <h2 class="heading settled" data-level="9" id="terminology"><span class="secno">9. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
    <dl>
     <dt data-md="">
-     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="Attestation Certificate" data-noexport="" id="attestation-certificate">Attestation Certificate<span class="dfn-panel" data-deco=""><b><a href="#attestation-certificate">#attestation-certificate</a></b><b>Referenced in:</b><span><a href="#ref-for-attestation-certificate-1">4.3.2.1.3. Packed attestation statement certificate requirements</a></span><span><a href="#ref-for-attestation-certificate-2">4.3.2.2.3. TPM attestation statement certificate requirements</a></span></span></dfn></p>
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="attestation-certificate">Attestation Certificate</dfn></p>
     <dd data-md="">
      <p>A X.509 Certificate for a key pair used by an <a data-link-type="dfn" href="#authenticator" id="ref-for-authenticator-17">Authenticator</a> to attest to its manufacture and capabilities.</p>
     <dt data-md="">
-     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="Authenticator" data-noexport="" id="authenticator">Authenticator<span class="dfn-panel" data-deco=""><b><a href="#authenticator">#authenticator</a></b><b>Referenced in:</b><span><a href="#ref-for-authenticator-1">1. Use Cases</a></span><span><a href="#ref-for-authenticator-2">4. WebAuthn Authenticator model</a></span><span><a href="#ref-for-authenticator-3">4.2. Signature Format</a></span><span><a href="#ref-for-authenticator-4">4.2.2. Authenticator data</a></span><span><a href="#ref-for-authenticator-5">4.2.3. Generating a signature</a></span><span><a href="#ref-for-authenticator-6">4.3. Credential Attestation Statements</a></span><span><a href="#ref-for-authenticator-7">4.3.2. Defined Attestation Types</a></span><span><a href="#ref-for-authenticator-8">4.3.2.1. Packed Attestation (type="packed")</a></span><span><a href="#ref-for-authenticator-9">4.3.2.1.1. Attestation rawData</a> <a href="#ref-for-authenticator-10">(2)</a></span><span><a href="#ref-for-authenticator-11">4.3.2.1.2. Signature</a></span><span><a href="#ref-for-authenticator-12">4.3.2.3. Android Attestation (type="android")</a></span><span><a href="#ref-for-authenticator-13">4.3.4.1. Privacy</a></span><span><a href="#ref-for-authenticator-14">4.3.4.2. Attestation Certificate and Attestation Certificate CA Compromise</a></span><span><a href="#ref-for-authenticator-15">6.3. AAGUID Extension</a></span><span><a href="#ref-for-authenticator-16">8. Sample scenarios</a></span><span><a href="#ref-for-authenticator-17">9. Terminology</a> <a href="#ref-for-authenticator-18">(2)</a></span></span></dfn></p>
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="authenticator">Authenticator</dfn></p>
     <dd data-md="">
      <p>The device used by the user agent to authenticate with the WebAuthn Relying Party. These can be <a data-link-type="dfn" href="#embedded-authenticators" id="ref-for-embedded-authenticators-2">Embedded Authenticators</a> or <a data-link-type="dfn" href="#external-authenticators" id="ref-for-external-authenticators-3">External Authenticators</a>.</p>
     <dt data-md="">
      <p><dfn data-dfn-type="dfn" data-noexport="" id="client">Client<a class="self-link" href="#client"></a></dfn></p>
     <dt data-md="">
-     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="WebAuthn Client" data-noexport="" id="webauthn-client">WebAuthn Client<span class="dfn-panel" data-deco=""><b><a href="#webauthn-client">#webauthn-client</a></b><b>Referenced in:</b><span><a href="#ref-for-webauthn-client-1">4.2. Signature Format</a></span></span></dfn></p>
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="webauthn-client">WebAuthn Client</dfn></p>
     <dd data-md="">
      <p>See <a data-link-type="dfn" href="#conforming-user-agent" id="ref-for-conforming-user-agent-2">Conforming User Agent</a>.</p>
     <dt data-md="">
-     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="Conforming User Agent" data-noexport="" id="conforming-user-agent">Conforming User Agent<span class="dfn-panel" data-deco=""><b><a href="#conforming-user-agent">#conforming-user-agent</a></b><b>Referenced in:</b><span><a href="#ref-for-conforming-user-agent-1">2. Conformance</a></span><span><a href="#ref-for-conforming-user-agent-2">9. Terminology</a></span></span></dfn></p>
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="conforming-user-agent">Conforming User Agent</dfn></p>
     <dd data-md="">
      <p>A user agent which implements algorithms given in this specification, and handles communication between the <a data-link-type="dfn" href="#authenticator" id="ref-for-authenticator-18">Authenticator</a> and the <a data-link-type="dfn" href="#webauthn-relying-party" id="ref-for-webauthn-relying-party-15">WebAuthn Relying Party</a>.</p>
     <dt data-md="">
-     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="eTLD+1" data-noexport="" id="etld1">eTLD+1<span class="dfn-panel" data-deco=""><b><a href="#etld1">#etld1</a></b><b>Referenced in:</b><span><a href="#ref-for-etld1-1">3.1.1. Create a new credential (makeCredential() method)</a></span><span><a href="#ref-for-etld1-2">3.1.2. Use an existing credential (getAssertion() method)</a></span></span></dfn></p>
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="etld1">eTLD+1</dfn></p>
     <dd data-md="">
      <p>The effective top-level domain, plus the first label. Also known as a Registered Domain. See <a data-link-type="biblio" href="#biblio-psl">[PSL]</a>.</p>
     <dt data-md="">
-     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="WebAuthn Relying Party" data-noexport="" id="webauthn-relying-party">WebAuthn Relying Party<span class="dfn-panel" data-deco=""><b><a href="#webauthn-relying-party">#webauthn-relying-party</a></b><b>Referenced in:</b><span><a href="#ref-for-webauthn-relying-party-1">1. Use Cases</a></span><span><a href="#ref-for-webauthn-relying-party-2">3.1.1. Create a new credential (makeCredential() method)</a></span><span><a href="#ref-for-webauthn-relying-party-3">3.2. ScopedCredentialInfo Interface</a></span><span><a href="#ref-for-webauthn-relying-party-4">3.3. User Account Information (dictionary Account)</a></span><span><a href="#ref-for-webauthn-relying-party-5">3.7. Credential Attestation Statement (interface WebAuthnAttestation)</a> <a href="#ref-for-webauthn-relying-party-6">(2)</a></span><span><a href="#ref-for-webauthn-relying-party-7">4. WebAuthn Authenticator model</a></span><span><a href="#ref-for-webauthn-relying-party-8">4.2. Signature Format</a></span><span><a href="#ref-for-webauthn-relying-party-9">4.3.2.1. Packed Attestation (type="packed")</a></span><span><a href="#ref-for-webauthn-relying-party-10">5.3. Extending request parameters</a></span><span><a href="#ref-for-webauthn-relying-party-11">5.4. Extending client processing</a></span><span><a href="#ref-for-webauthn-relying-party-12">5.6. Example extension</a></span><span><a href="#ref-for-webauthn-relying-party-13">8.2. Authentication</a></span><span><a href="#ref-for-webauthn-relying-party-14">8.3. Decommissioning</a></span><span><a href="#ref-for-webauthn-relying-party-15">9. Terminology</a></span></span></dfn></p>
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="webauthn-relying-party">WebAuthn Relying Party</dfn></p>
     <dd data-md="">
      <p>The entity which needs to rely in the authentication provided by the WebAuthn specification. When registration concludes,
 the WebAuthn Relying Party has the public key that was created by the Authenticator.</p>
@@ -2432,7 +2447,7 @@ the WebAuthn Relying Party has the public key that was created by the Authentica
    <dt id="biblio-html">[HTML]
    <dd>Ian Hickson. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-html5">[HTML5]
-   <dd>Ian Hickson; et al. <a href="http://www.w3.org/TR/html5/">HTML5</a>. 28 October 2014. REC. URL: <a href="http://www.w3.org/TR/html5/">http://www.w3.org/TR/html5/</a>
+   <dd>Ian Hickson; et al. <a href="http://www.w3.org/html/wg/drafts/html/master/">HTML5</a>. 28 October 2014. REC. URL: <a href="http://www.w3.org/html/wg/drafts/html/master/">http://www.w3.org/html/wg/drafts/html/master/</a>
    <dt id="biblio-oscca-sm3">[OSCCA-SM3]
    <dd><a href="http://www.oscca.gov.cn/UpFile/20101222141857786.pdf">SM3 Cryptographic Hash Algorithm</a>. December 2010. URL: <a href="http://www.oscca.gov.cn/UpFile/20101222141857786.pdf">http://www.oscca.gov.cn/UpFile/20101222141857786.pdf</a>
    <dt id="biblio-rfc4648">[RFC4648]
@@ -2444,7 +2459,7 @@ the WebAuthn Relying Party has the public key that was created by the Authentica
    <dt id="biblio-sec1">[SEC1]
    <dd><a href="http://www.secg.org/sec1-v2.pdf">SEC1: Elliptic Curve Cryptography, Version 2.0</a>. URL: <a href="http://www.secg.org/sec1-v2.pdf">http://www.secg.org/sec1-v2.pdf</a>
    <dt id="biblio-webcryptoapi">[WebCryptoAPI]
-   <dd>Ryan Sleevi; Mark Watson. <a href="http://www.w3.org/TR/WebCryptoAPI/">Web Cryptography API</a>. 11 December 2014. CR. URL: <a href="http://www.w3.org/TR/WebCryptoAPI/">http://www.w3.org/TR/WebCryptoAPI/</a>
+   <dd>Ryan Sleevi; Mark Watson. <a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html">Web Cryptography API</a>. 11 December 2014. CR. URL: <a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html">https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html</a>
    <dt id="biblio-webidl-1">[WebIDL-1]
    <dd>Cameron McCormack; Boris Zbarsky. <a href="https://heycam.github.io/webidl/">WebIDL Level 1</a>. 8 March 2016. CR. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a>
   </dl>
@@ -2473,7 +2488,7 @@ the WebAuthn Relying Party has the public key that was created by the Authentica
    <dt id="biblio-rfc7159">[RFC7159]
    <dd>T. Bray, Ed.. <a href="https://tools.ietf.org/html/rfc7159">The JavaScript Object Notation (JSON) Data Interchange Format</a>. March 2014. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc7159">https://tools.ietf.org/html/rfc7159</a>
    <dt id="biblio-secure-contexts">[SECURE-CONTEXTS]
-   <dd>Mike West. <a href="http://www.w3.org/TR/secure-contexts/">Secure Contexts</a>. 26 April 2016. WD. URL: <a href="http://www.w3.org/TR/secure-contexts/">http://www.w3.org/TR/secure-contexts/</a>
+   <dd>Mike West. <a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Contexts</a>. 26 April 2016. WD. URL: <a href="https://w3c.github.io/webappsec-secure-contexts/">https://w3c.github.io/webappsec-secure-contexts/</a>
    <dt id="biblio-sp800-107r1">[SP800-107r1]
    <dd>Quynh Dang. <a href="http://csrc.nist.gov/publications/nistpubs/800-107-rev1/sp800-107-rev1.pdf">NIST Special Publication 800-107: Recommendation for Applications Using Approved Hash Algorithms</a>. August 2012. URL: <a href="http://csrc.nist.gov/publications/nistpubs/800-107-rev1/sp800-107-rev1.pdf">http://csrc.nist.gov/publications/nistpubs/800-107-rev1/sp800-107-rev1.pdf</a>
    <dt id="biblio-tpmv1-2-credential-profiles">[TPMv1-2-Credential-Profiles]
@@ -2588,6 +2603,360 @@ typedef sequence &lt; <a data-link-type="idl-name" href="#typedefdef-aaguid">AAG
 typedef <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource">BufferSource</a> <a href="#typedefdef-aaguid">AAGUID</a>;
 
 </pre>
+  <aside class="dfn-panel" data-for="embedded-authenticators">
+   <b><a href="#embedded-authenticators">#embedded-authenticators</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-embedded-authenticators-1">1.1. Registration (embedded authenticator mode)</a>
+    <li><a href="#ref-for-embedded-authenticators-2">9. Terminology</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="external-authenticators">
+   <b><a href="#external-authenticators">#external-authenticators</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-external-authenticators-1">1.2. Authentication (external authenticator mode)</a>
+    <li><a href="#ref-for-external-authenticators-2">8.2. Authentication</a>
+    <li><a href="#ref-for-external-authenticators-3">9. Terminology</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="origin">
+   <b><a href="#origin">#origin</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-origin-1">3.1.1. Create a new credential (makeCredential() method)</a>
+    <li><a href="#ref-for-origin-2">3.1.2. Use an existing credential (getAssertion() method)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="promises">
+   <b><a href="#promises">#promises</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-promises-1">3.1.1. Create a new credential (makeCredential() method)</a>
+    <li><a href="#ref-for-promises-2">3.1.2. Use an existing credential (getAssertion() method)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="domexception">
+   <b><a href="#domexception">#domexception</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-domexception-1">3.1.1. Create a new credential (makeCredential() method)</a>
+    <li><a href="#ref-for-domexception-2">3.1.2. Use an existing credential (getAssertion() method)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dictdef-algorithmidentifier">
+   <b><a href="#dictdef-algorithmidentifier">#dictdef-algorithmidentifier</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-algorithmidentifier-1">3. Web Authentication API</a>
+    <li><a href="#ref-for-dictdef-algorithmidentifier-2">3.8.3. Cryptographic Algorithm Identifier (type AlgorithmIdentifier)</a>
+    <li><a href="#ref-for-dictdef-algorithmidentifier-3">4.2.1. Client data used in WebAuthn signatures (dictionary ClientData)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dictdef-jsonwebkey">
+   <b><a href="#dictdef-jsonwebkey">#dictdef-jsonwebkey</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-jsonwebkey-1">4.2.1. Client data used in WebAuthn signatures (dictionary ClientData)</a>
+    <li><a href="#ref-for-dictdef-jsonwebkey-2">4.3.2.3.1. Signature</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="webauthentication">
+   <b><a href="#webauthentication">#webauthentication</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-webauthentication-1">3. Web Authentication API</a> <a href="#ref-for-webauthentication-2">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-webauthentication-makecredential">
+   <b><a href="#dom-webauthentication-makecredential">#dom-webauthentication-makecredential</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-webauthentication-makecredential-1">3. Web Authentication API</a>
+    <li><a href="#ref-for-dom-webauthentication-makecredential-2">4.3.2.3.2. Verifying AndroidClientData specific contextual bindings</a>
+    <li><a href="#ref-for-dom-webauthentication-makecredential-3">5. WebAuthn Extensions</a> <a href="#ref-for-dom-webauthentication-makecredential-4">(2)</a>
+    <li><a href="#ref-for-dom-webauthentication-makecredential-5">5.2. Defining extensions</a>
+    <li><a href="#ref-for-dom-webauthentication-makecredential-6">5.3. Extending request parameters</a> <a href="#ref-for-dom-webauthentication-makecredential-7">(2)</a>
+    <li><a href="#ref-for-dom-webauthentication-makecredential-8">6.2. Authenticator Selection Extension</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="accountinformation">
+   <b><a href="#accountinformation">#accountinformation</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-accountinformation-1">3.1.1. Create a new credential (makeCredential() method)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="cryptoparameters">
+   <b><a href="#cryptoparameters">#cryptoparameters</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-cryptoparameters-1">3.1.1. Create a new credential (makeCredential() method)</a> <a href="#ref-for-cryptoparameters-2">(2)</a> <a href="#ref-for-cryptoparameters-3">(3)</a> <a href="#ref-for-cryptoparameters-4">(4)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="attestationchallenge">
+   <b><a href="#attestationchallenge">#attestationchallenge</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-attestationchallenge-1">3.1.1. Create a new credential (makeCredential() method)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="credentialtimeoutseconds">
+   <b><a href="#credentialtimeoutseconds">#credentialtimeoutseconds</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-credentialtimeoutseconds-1">3.1.1. Create a new credential (makeCredential() method)</a> <a href="#ref-for-credentialtimeoutseconds-2">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="blacklist">
+   <b><a href="#blacklist">#blacklist</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-blacklist-1">3.1.1. Create a new credential (makeCredential() method)</a> <a href="#ref-for-blacklist-2">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="credentialextensions">
+   <b><a href="#credentialextensions">#credentialextensions</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-credentialextensions-1">3.1.1. Create a new credential (makeCredential() method)</a>
+    <li><a href="#ref-for-credentialextensions-2">5.3. Extending request parameters</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-webauthentication-getassertion">
+   <b><a href="#dom-webauthentication-getassertion">#dom-webauthentication-getassertion</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-webauthentication-getassertion-1">3. Web Authentication API</a>
+    <li><a href="#ref-for-dom-webauthentication-getassertion-2">3.6. WebAuthn Assertion Extensions (dictionary WebAuthnExtensions)</a>
+    <li><a href="#ref-for-dom-webauthentication-getassertion-3">5. WebAuthn Extensions</a> <a href="#ref-for-dom-webauthentication-getassertion-4">(2)</a>
+    <li><a href="#ref-for-dom-webauthentication-getassertion-5">5.2. Defining extensions</a>
+    <li><a href="#ref-for-dom-webauthentication-getassertion-6">5.3. Extending request parameters</a> <a href="#ref-for-dom-webauthentication-getassertion-7">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="assertionchallenge">
+   <b><a href="#assertionchallenge">#assertionchallenge</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-assertionchallenge-1">3.1.2. Use an existing credential (getAssertion() method)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="assertiontimeoutseconds">
+   <b><a href="#assertiontimeoutseconds">#assertiontimeoutseconds</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-assertiontimeoutseconds-1">3.1.2. Use an existing credential (getAssertion() method)</a> <a href="#ref-for-assertiontimeoutseconds-2">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="whitelist">
+   <b><a href="#whitelist">#whitelist</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-whitelist-1">3.1.2. Use an existing credential (getAssertion() method)</a> <a href="#ref-for-whitelist-2">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="assertionextensions">
+   <b><a href="#assertionextensions">#assertionextensions</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-assertionextensions-1">3.1.2. Use an existing credential (getAssertion() method)</a>
+    <li><a href="#ref-for-assertionextensions-2">5.3. Extending request parameters</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="scopedcredentialinfo">
+   <b><a href="#scopedcredentialinfo">#scopedcredentialinfo</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-scopedcredentialinfo-1">3. Web Authentication API</a> <a href="#ref-for-scopedcredentialinfo-2">(2)</a>
+    <li><a href="#ref-for-scopedcredentialinfo-3">3.1.1. Create a new credential (makeCredential() method)</a> <a href="#ref-for-scopedcredentialinfo-4">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dictdef-account">
+   <b><a href="#dictdef-account">#dictdef-account</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-account-1">3. Web Authentication API</a> <a href="#ref-for-dictdef-account-2">(2)</a>
+    <li><a href="#ref-for-dictdef-account-3">4.1.1. The authenticatorMakeCredential operation</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dictdef-scopedcredentialparameters">
+   <b><a href="#dictdef-scopedcredentialparameters">#dictdef-scopedcredentialparameters</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-scopedcredentialparameters-1">3. Web Authentication API</a> <a href="#ref-for-dictdef-scopedcredentialparameters-2">(2)</a>
+    <li><a href="#ref-for-dictdef-scopedcredentialparameters-3">3.1.1. Create a new credential (makeCredential() method)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="webauthnassertion">
+   <b><a href="#webauthnassertion">#webauthnassertion</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-webauthnassertion-1">3. Web Authentication API</a> <a href="#ref-for-webauthnassertion-2">(2)</a>
+    <li><a href="#ref-for-webauthnassertion-3">3.1.2. Use an existing credential (getAssertion() method)</a>
+    <li><a href="#ref-for-webauthnassertion-4">4.2.3. Generating a signature</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dictdef-webauthnextensions">
+   <b><a href="#dictdef-webauthnextensions">#dictdef-webauthnextensions</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-webauthnextensions-1">3. Web Authentication API</a> <a href="#ref-for-dictdef-webauthnextensions-2">(2)</a> <a href="#ref-for-dictdef-webauthnextensions-3">(3)</a>
+    <li><a href="#ref-for-dictdef-webauthnextensions-4">4.2.1. Client data used in WebAuthn signatures (dictionary ClientData)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="webauthnattestation">
+   <b><a href="#webauthnattestation">#webauthnattestation</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-webauthnattestation-1">3. Web Authentication API</a> <a href="#ref-for-webauthnattestation-2">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="enumdef-credentialtype">
+   <b><a href="#enumdef-credentialtype">#enumdef-credentialtype</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-enumdef-credentialtype-1">3. Web Authentication API</a> <a href="#ref-for-enumdef-credentialtype-2">(2)</a> <a href="#ref-for-enumdef-credentialtype-3">(3)</a>
+    <li><a href="#ref-for-enumdef-credentialtype-4">3.1.1. Create a new credential (makeCredential() method)</a>
+    <li><a href="#ref-for-enumdef-credentialtype-5">3.8.2. Unique Identifier for Credential (interface Credential)</a>
+    <li><a href="#ref-for-enumdef-credentialtype-6">4.1.1. The authenticatorMakeCredential operation</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="credential">
+   <b><a href="#credential">#credential</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-credential-1">3. Web Authentication API</a> <a href="#ref-for-credential-2">(2)</a> <a href="#ref-for-credential-3">(3)</a> <a href="#ref-for-credential-4">(4)</a> <a href="#ref-for-credential-5">(5)</a>
+    <li><a href="#ref-for-credential-6">4.1.1. The authenticatorMakeCredential operation</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="authenticatormakecredential">
+   <b><a href="#authenticatormakecredential">#authenticatormakecredential</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-authenticatormakecredential-1">3.1.1. Create a new credential (makeCredential() method)</a>
+    <li><a href="#ref-for-authenticatormakecredential-2">4.1.3. The authenticatorCancel operation</a> <a href="#ref-for-authenticatormakecredential-3">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="authenticatorgetassertion">
+   <b><a href="#authenticatorgetassertion">#authenticatorgetassertion</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-authenticatorgetassertion-1">3.1.2. Use an existing credential (getAssertion() method)</a>
+    <li><a href="#ref-for-authenticatorgetassertion-2">4.1.3. The authenticatorCancel operation</a> <a href="#ref-for-authenticatorgetassertion-3">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="authenticatorcancel">
+   <b><a href="#authenticatorcancel">#authenticatorcancel</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-authenticatorcancel-1">3.1.1. Create a new credential (makeCredential() method)</a> <a href="#ref-for-authenticatorcancel-2">(2)</a>
+    <li><a href="#ref-for-authenticatorcancel-3">3.1.2. Use an existing credential (getAssertion() method)</a> <a href="#ref-for-authenticatorcancel-4">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dictdef-clientdata">
+   <b><a href="#dictdef-clientdata">#dictdef-clientdata</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-clientdata-1">4.2.1. Client data used in WebAuthn signatures (dictionary ClientData)</a>
+    <li><a href="#ref-for-dictdef-clientdata-2">4.2.3. Generating a signature</a> <a href="#ref-for-dictdef-clientdata-3">(2)</a>
+    <li><a href="#ref-for-dictdef-clientdata-4">4.3.2.3.1. Signature</a>
+    <li><a href="#ref-for-dictdef-clientdata-5">5. WebAuthn Extensions</a> <a href="#ref-for-dictdef-clientdata-6">(2)</a>
+    <li><a href="#ref-for-dictdef-clientdata-7">5.2. Defining extensions</a> <a href="#ref-for-dictdef-clientdata-8">(2)</a>
+    <li><a href="#ref-for-dictdef-clientdata-9">5.3. Extending request parameters</a>
+    <li><a href="#ref-for-dictdef-clientdata-10">5.4. Extending client processing</a> <a href="#ref-for-dictdef-clientdata-11">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="clientdata-hashalg">
+   <b><a href="#clientdata-hashalg">#clientdata-hashalg</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-clientdata-hashalg-1">4.2.3. Generating a signature</a> <a href="#ref-for-clientdata-hashalg-2">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="clientdata-extensions">
+   <b><a href="#clientdata-extensions">#clientdata-extensions</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-clientdata-extensions-1">5.4. Extending client processing</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="authenticatordata">
+   <b><a href="#authenticatordata">#authenticatordata</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-authenticatordata-1">4.2.3. Generating a signature</a> <a href="#ref-for-authenticatordata-2">(2)</a>
+    <li><a href="#ref-for-authenticatordata-3">5. WebAuthn Extensions</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="clientdatajson">
+   <b><a href="#clientdatajson">#clientdatajson</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-clientdatajson-1">3.7. Credential Attestation Statement (interface WebAuthnAttestation)</a>
+    <li><a href="#ref-for-clientdatajson-2">4.2.3. Generating a signature</a> <a href="#ref-for-clientdatajson-3">(2)</a> <a href="#ref-for-clientdatajson-4">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="clientdatahash">
+   <b><a href="#clientdatahash">#clientdatahash</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-clientdatahash-1">4.2.3. Generating a signature</a> <a href="#ref-for-clientdatahash-2">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="attestationstatement">
+   <b><a href="#attestationstatement">#attestationstatement</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-attestationstatement-1">4.2.3. Generating a signature</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="client-argument">
+   <b><a href="#client-argument">#client-argument</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-client-argument-1">5.3. Extending request parameters</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="content">
+   <b><a href="#content">#content</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-content-1">6.1. Transaction authorization</a> <a href="#ref-for-content-2">(2)</a> <a href="#ref-for-content-3">(3)</a> <a href="#ref-for-content-4">(4)</a> <a href="#ref-for-content-5">(5)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="typedefdef-aaguid">
+   <b><a href="#typedefdef-aaguid">#typedefdef-aaguid</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-typedefdef-aaguid-1">6.2. Authenticator Selection Extension</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="attestation-certificate">
+   <b><a href="#attestation-certificate">#attestation-certificate</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-attestation-certificate-1">4.3.2.1.3. Packed attestation statement certificate requirements</a>
+    <li><a href="#ref-for-attestation-certificate-2">4.3.2.2.3. TPM attestation statement certificate requirements</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="authenticator">
+   <b><a href="#authenticator">#authenticator</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-authenticator-1">1. Use Cases</a>
+    <li><a href="#ref-for-authenticator-2">4. WebAuthn Authenticator model</a>
+    <li><a href="#ref-for-authenticator-3">4.2. Signature Format</a>
+    <li><a href="#ref-for-authenticator-4">4.2.2. Authenticator data</a>
+    <li><a href="#ref-for-authenticator-5">4.2.3. Generating a signature</a>
+    <li><a href="#ref-for-authenticator-6">4.3. Credential Attestation Statements</a>
+    <li><a href="#ref-for-authenticator-7">4.3.2. Defined Attestation Types</a>
+    <li><a href="#ref-for-authenticator-8">4.3.2.1. Packed Attestation (type="packed")</a>
+    <li><a href="#ref-for-authenticator-9">4.3.2.1.1. Attestation rawData</a> <a href="#ref-for-authenticator-10">(2)</a>
+    <li><a href="#ref-for-authenticator-11">4.3.2.1.2. Signature</a>
+    <li><a href="#ref-for-authenticator-12">4.3.2.3. Android Attestation (type="android")</a>
+    <li><a href="#ref-for-authenticator-13">4.3.4.1. Privacy</a>
+    <li><a href="#ref-for-authenticator-14">4.3.4.2. Attestation Certificate and Attestation Certificate CA Compromise</a>
+    <li><a href="#ref-for-authenticator-15">6.3. AAGUID Extension</a>
+    <li><a href="#ref-for-authenticator-16">8. Sample scenarios</a>
+    <li><a href="#ref-for-authenticator-17">9. Terminology</a> <a href="#ref-for-authenticator-18">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="webauthn-client">
+   <b><a href="#webauthn-client">#webauthn-client</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-webauthn-client-1">4.2. Signature Format</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="conforming-user-agent">
+   <b><a href="#conforming-user-agent">#conforming-user-agent</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-conforming-user-agent-1">2. Conformance</a>
+    <li><a href="#ref-for-conforming-user-agent-2">9. Terminology</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="etld1">
+   <b><a href="#etld1">#etld1</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-etld1-1">3.1.1. Create a new credential (makeCredential() method)</a>
+    <li><a href="#ref-for-etld1-2">3.1.2. Use an existing credential (getAssertion() method)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="webauthn-relying-party">
+   <b><a href="#webauthn-relying-party">#webauthn-relying-party</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-webauthn-relying-party-1">1. Use Cases</a>
+    <li><a href="#ref-for-webauthn-relying-party-2">3.1.1. Create a new credential (makeCredential() method)</a>
+    <li><a href="#ref-for-webauthn-relying-party-3">3.2. ScopedCredentialInfo Interface</a>
+    <li><a href="#ref-for-webauthn-relying-party-4">3.3. User Account Information (dictionary Account)</a>
+    <li><a href="#ref-for-webauthn-relying-party-5">3.7. Credential Attestation Statement (interface WebAuthnAttestation)</a> <a href="#ref-for-webauthn-relying-party-6">(2)</a>
+    <li><a href="#ref-for-webauthn-relying-party-7">4. WebAuthn Authenticator model</a>
+    <li><a href="#ref-for-webauthn-relying-party-8">4.2. Signature Format</a>
+    <li><a href="#ref-for-webauthn-relying-party-9">4.3.2.1. Packed Attestation (type="packed")</a>
+    <li><a href="#ref-for-webauthn-relying-party-10">5.3. Extending request parameters</a>
+    <li><a href="#ref-for-webauthn-relying-party-11">5.4. Extending client processing</a>
+    <li><a href="#ref-for-webauthn-relying-party-12">5.6. Example extension</a>
+    <li><a href="#ref-for-webauthn-relying-party-13">8.2. Authentication</a>
+    <li><a href="#ref-for-webauthn-relying-party-14">8.3. Decommissioning</a>
+    <li><a href="#ref-for-webauthn-relying-party-15">9. Terminology</a>
+   </ul>
+  </aside>
 <script>/* script-dfn-panel */
 
         document.body.addEventListener("click", function(e) {
@@ -2595,16 +2964,13 @@ typedef <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#Buff
             // Find the dfn element or panel, if any, that was clicked on.
             var el = e.target;
             var target;
+            var hitALink = false;
             while(el.parentElement) {
                 if(el.tagName == "A") {
-                    // Clicked on a link; intercept this early in case it was nested in a <dfn>
-                    return true;
+                    // Clicking on a link in a <dfn> shouldn't summon the panel
+                    hitALink = true;
                 }
-                if(el.tagName == "DFN") {
-                    target = "dfn";
-                    break;
-                }
-                if(/H\d/.test(el.tagName) && el.getAttribute('data-dfn-type') != null) {
+                if(el.classList.contains("dfn-paneled")) {
                     target = "dfn";
                     break;
                 }
@@ -2621,15 +2987,29 @@ typedef <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#Buff
                     el.classList.remove("activated");
                 });
             }
-            if(target == "dfn") {
+            if(target == "dfn" && !hitALink) {
                 // open the panel
-                var dfnPanel = el.querySelector(".dfn-panel");
+                var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
                 if(dfnPanel) {
+                    console.log(dfnPanel);
                     dfnPanel.classList.add("on");
+                    var rect = el.getBoundingClientRect();
+                    dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
+                    dfnPanel.style.top = window.scrollY + rect.top + "px";
+                    var panelRect = dfnPanel.getBoundingClientRect();
+                    var panelWidth = panelRect.right - panelRect.left;
+                    if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
+                        // Reposition, because the panel is overflowing
+                        dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
+                    }
+                } else {
+                    console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
                 }
             } else if(target == "dfn-panel") {
                 // Switch it to "activated" state, which pins it.
                 el.classList.add("activated");
+                el.style.left = null;
+                el.style.top = null;
             }
 
         });
